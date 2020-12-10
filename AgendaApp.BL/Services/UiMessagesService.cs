@@ -23,7 +23,8 @@ namespace AgendaApp.BL.Services
         {
             try
             {
-                string defaultPath = @"C:\Users\simai\source\repos\WPFMokymai\AgendaApp.BL\Translations\";
+                //TODO dynamic translations path
+                string defaultPath = @"C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Translations\";
                 string path = $"{defaultPath}{translationLanguage}.json";
                 StringBuilder sb = new StringBuilder();
 

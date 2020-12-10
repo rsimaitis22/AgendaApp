@@ -29,11 +29,11 @@ namespace AgendaApp
         AgendaItem AgendaItem { get; set; }
         TranslationsAgendaObject TranslationsAgendaObject { get; set; }
 
-        public NewAgendaItem()
+        public NewAgendaItem(string language)
         {
             InitializeComponent();
 
-            uiMessagesService = new UiMessagesService("EN");
+            uiMessagesService = new UiMessagesService(language);
             TimeObj = new TimeObject();
             AgendaItem = new AgendaItem();
             agendaManager = new AgendaManager();

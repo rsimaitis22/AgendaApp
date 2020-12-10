@@ -50,8 +50,8 @@
         </Grid.RowDefinitions>
 
         <Button Name="btnCreateNewAgenda" Click="btnCreateNewAgenda_Click"></Button>
+        <ListBox x:Name="languagesListBox" SelectionChanged="listBox_SelectedValue" Grid.Column="1" Grid.Row="0"></ListBox>
         <StackPanel Grid.Row="1" Grid.RowSpan="5" Margin="5">
-            <ListBox x:Name="languagesList" SelectedValue="listBox_SelectedValue" Grid.Column="1" Grid.Row="0"></ListBox>
             <ListBox x:Name="closestToFinishAgendaListBox" ItemTemplate="{StaticResource myTaskTemplate}">
 
             </ListBox>

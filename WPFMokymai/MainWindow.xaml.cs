@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AgendaApp.BL;
 using AgendaApp.DL.Models;
+using AgendaApp.BL.Services;
 
 namespace AgendaApp
 {
@@ -24,35 +25,43 @@ namespace AgendaApp
     public partial class MainWindow : Window
     {
         List<AgendaItem> AgendaList;
-        List<string> LanguagesList;
+        List<string> languagesList;
+        UiMessagesService messagesService;
+        
         public string SelectedLanguage { get; set; }
 
         public MainWindow()
         {
-            LanguagesList = new List<string>() { "EN","LT"};
+            languagesList = new List<string>() { "EN","LT"};
 
+            //DUMMY data
             AgendaList = new List<AgendaItem>();
-
             AgendaList.Add(new AgendaItem() { Id = 1, Title = "Pirmas", Description = "Prausiam suni, perkam maike", IsCompleted = false, IsRepeatable = false, RepeatableInterval = 0, StartDate = DateTime.Now, FinishDate = DateTime.UtcNow });
             AgendaList.Add(new AgendaItem() { Id = 2, Title = "Antras", Description = "Ispirkti visa tualetini popieriu", IsCompleted = false, IsRepeatable = false, RepeatableInterval = 0, StartDate = DateTime.Now, FinishDate = DateTime.UtcNow });
             AgendaList.Add(new AgendaItem() { Id = 3, Title = "Trecias", Description = "Nukasti sniega nuo batu", IsCompleted = false, IsRepeatable = false, RepeatableInterval = 0, StartDate = DateTime.Now, FinishDate = DateTime.UtcNow });
 
             InitializeComponent();
-            
 
+            SelectedLanguage = "EN";
+            messagesService = new UiMessagesService(SelectedLanguage);
+
+            languagesListBox.ItemsSource = languagesList;
             closestToFinishAgendaListBox.ItemsSource = AgendaList;
+
+
 
         }
         private void listBox_SelectedValue(object sender, RoutedEventArgs e)
         {
             var selected = (ListBox)sender;
-            var s = selected.SelectedItem;
-
+            SelectedLanguage = selected.SelectedItem.ToString();
+            //TODO jei egzistuoja vienos kalbos serviso instance kito tokio pat daugiau nekurti
+            messagesService = new UiMessagesService(SelectedLanguage);
         }
 
         private void btnCreateNewAgenda_Click(object sender, RoutedEventArgs e)
         {
-            NewAgendaItem item = new NewAgendaItem();
+            NewAgendaItem item = new NewAgendaItem(SelectedLanguage);
             item.Show();
         }
     }
