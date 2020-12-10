@@ -1,0 +1,61 @@
+﻿<Window x:Class="AgendaApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgendaApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="520" Width="1400">
+
+    <Window.Resources>
+        <DataTemplate x:Key="myTaskTemplate"  >
+            <Border Name="border" BorderBrush="Aqua" BorderThickness="1" HorizontalAlignment="Stretch" Padding="5" Margin="5">
+                <Grid Name="txtListGrid"  Width="250"  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Title}" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Description}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=StartDate}" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=FinishDate}" HorizontalAlignment="Left"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid x:Name="mainWindow" Background="#FFE6E6E6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button Name="btnCreateNewAgenda" Click="btnCreateNewAgenda_Click"></Button>
+        <StackPanel Grid.Row="1" Grid.RowSpan="5" Margin="5">
+            <ListBox x:Name="languagesList" SelectedValue="listBox_SelectedValue" Grid.Column="1" Grid.Row="0"></ListBox>
+            <ListBox x:Name="closestToFinishAgendaListBox" ItemTemplate="{StaticResource myTaskTemplate}">
+
+            </ListBox>
+        </StackPanel>
+
+    </Grid>
+</Window>

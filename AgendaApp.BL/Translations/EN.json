@@ -1,0 +1,11 @@
+{
+        "AgendaWindowTitle":"New agenda",
+        "AgendaTitle":"Title",
+        "AgendaDescription":"Description",
+        "AgendaHours":"Hours",
+        "AgendaMinutes":"Minutes",
+        "AgendaDays":"Day",
+        "AgendaDaySelector":"Choose date",
+        "AgendaItemSaveButtonText":"Save agenda",
+        "AgendaItemExitButtonText":"Exit without saving"    
+}

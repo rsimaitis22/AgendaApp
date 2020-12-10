@@ -1,0 +1,11 @@
+{
+        "AgendaWindowTitle":"Naujas įrašas",
+        "AgendaTitle":"Pavadinimas",
+        "AgendaDescription":"Aprašymas",
+        "AgendaHours":"Valandos",
+        "AgendaMinutes":"Minutes",
+        "AgendaDays":"Diena",
+        "AgendaDaySelector":"Pasirinkite datą",
+        "AgendaItemSaveButtonText":"Išsaugoti įrašą",
+        "AgendaItemExitButtonText":"Grįžti atgal neišsaugojus"    
+}
