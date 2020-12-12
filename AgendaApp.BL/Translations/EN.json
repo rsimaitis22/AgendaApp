@@ -12,7 +12,7 @@
   },
   "MainWindow": {
     "Title": "Agenda planner - build your day",
-    "NewAgenda": "Create new agenda",
+    "NewAgendaButtonText": "Create new agenda",
     "Week": "Week",
     "Monday": "Monday",
     "Tuesday": "Tuesday",

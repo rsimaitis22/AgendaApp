@@ -12,7 +12,7 @@
   },
   "MainWindow": {
     "Title": "Dienotvarkes planuotojas - susikurk savo dieną",
-    "NewAgenda": "Kurti naują įrašą",
+    "NewAgendaButtonText": "Kurti naują įrašą",
     "Week": "Savaitė",
     "Monday": "Pirmadienis",
     "Tuesday": "Antradienis",

@@ -41,6 +41,7 @@ namespace AgendaApp
             InitializeComponent();
 
             InitializeLanguage();
+            TranslateWindowText();
 
             languagesListBox.ItemsSource = languagesList;
 
@@ -61,6 +62,7 @@ namespace AgendaApp
             SelectedLanguage = selected.SelectedItem.ToString();
             //TODO jei egzistuoja vienos kalbos serviso instance kito tokio pat daugiau nekurti
             messagesService = new UiMessagesService(SelectedLanguage);
+            TranslateWindowText();
         }
 
         private void btnCreateNewAgenda_Click(object sender, RoutedEventArgs e)
@@ -78,6 +80,9 @@ namespace AgendaApp
         public virtual void TranslateWindowText()
         {
             TranslationsMainWindowObject = (TranslationsMainWindowObject)messagesService.GetTranslationsObject(windowName);
+
+            Title = TranslationsMainWindowObject.Title;
+            btnCreateNewAgenda.Content = TranslationsMainWindowObject.NewAgendaButtonText;
         }
     }
 }
