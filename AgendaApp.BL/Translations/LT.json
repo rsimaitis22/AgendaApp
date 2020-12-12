@@ -1,11 +1,23 @@
 {
-        "AgendaWindowTitle":"Naujas įrašas",
-        "AgendaTitle":"Pavadinimas",
-        "AgendaDescription":"Aprašymas",
-        "AgendaHours":"Valandos",
-        "AgendaMinutes":"Minutes",
-        "AgendaDays":"Diena",
-        "AgendaDaySelector":"Pasirinkite datą",
-        "AgendaItemSaveButtonText":"Išsaugoti įrašą",
-        "AgendaItemExitButtonText":"Grįžti atgal neišsaugojus"    
+  "AgendaWindow": {
+    "WindowTitle": "Naujas įrašas",
+    "Title": "Pavadinimas",
+    "Description": "Aprašymas",
+    "Hours": "Valandos",
+    "Minutes": "Minutes",
+    "Days": "Diena",
+    "DaySelector": "Pasirinkite datą",
+    "ItemSaveButtonText": "Išsaugoti įrašą",
+    "ItemExitButtonText": "Grįžti atgal neišsaugojus"
+  },
+  "MainWindow": {
+    "Title": "Dienotvarkes planuotojas - susikurk savo dieną",
+    "NewAgenda": "Kurti naują įrašą",
+    "Week": "Savaitė",
+    "Monday": "Pirmadienis",
+    "Tuesday": "Antradienis",
+    "Wednsday": "Trečiadienis",
+    "Thursday": "Ketvirtadienis",
+    "Friday": "Penktadienis"
+  }
 }

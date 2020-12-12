@@ -1,5 +1,7 @@
 ﻿using AgendaApp.BL.Models;
+using AgendaApp.DL.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,9 +47,18 @@ namespace AgendaApp.BL.Services
                 throw;
             }
         }
-        public TranslationsAgendaObject GetAgendaObjectTranslations()
+        public object GetTranslationsObject(string windowName)
         {
-            return JsonConvert.DeserializeObject<TranslationsAgendaObject>(ReadDataFromFile());
+            JObject data = JObject.Parse(ReadDataFromFile());
+            IList<JToken> results = data[windowName].Children().ToList();
+
+            Dictionary<string, Object> translationObject = new Dictionary<string, Object>();
+
+            translationObject.Add("AgendaWindow", JsonConvert.DeserializeObject<TranslationsAgendaObject>(data[windowName].ToString()));
+            translationObject.Add("MainWindow", JsonConvert.DeserializeObject<TranslationsMainWindowObject>(data[windowName].ToString()));
+            translationObject.Add("WeeklyReportWindow", JsonConvert.DeserializeObject<TranslationsWeeklyReportWindowObject>(data[windowName].ToString()));
+            
+            return translationObject[windowName];
         }
     }
 }

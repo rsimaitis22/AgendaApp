@@ -8,14 +8,14 @@ namespace AgendaApp.BL.Models
 {
     public class TranslationsAgendaObject
     {
-        public string AgendaWindowTitle { get; set; }
-        public string AgendaTitle { get; set; }
-        public string AgendaDescription { get; set; }
-        public string AgendaHours { get; set; }
-        public string AgendaMinutes { get; set; }
-        public string AgendaDays { get; set; }
-        public string AgendaDaySelector { get; set; }
-        public string AgendaItemSaveButtonText { get; set; }
-        public string AgendaItemExitButtonText { get; set; }
+        public string WindowTitle { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Hours { get; set; }
+        public string Minutes { get; set; }
+        public string Days { get; set; }
+        public string DaySelector { get; set; }
+        public string ItemSaveButtonText { get; set; }
+        public string ItemExitButtonText { get; set; }
     }
 }

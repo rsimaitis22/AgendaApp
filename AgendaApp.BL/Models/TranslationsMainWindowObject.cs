@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgendaApp.BL.Models
 {
-    class TranslationsMainWindowObject
+    public class TranslationsMainWindowObject
     {
     }
 }

@@ -51,7 +51,7 @@
 
         <Button Name="btnCreateNewAgenda" Click="btnCreateNewAgenda_Click"></Button>
         
-        <ListBox x:Name="languagesListBox" SelectionChanged="listBox_SelectedValue" Grid.Column="1" Grid.Row="0"></ListBox>
+        <ListBox x:Name="languagesListBox" SelectionChanged="languagesListBox_SelectedValue" Grid.Column="1" Grid.Row="0"></ListBox>
         
         <ScrollViewer x:Name="sidePanelScrollViewer" CanContentScroll="True" PreviewMouseWheel="sidePanelScrollViewer_PreviewMouseWheel" Background="Transparent" Grid.Row="1" Grid.RowSpan="5" Margin="5">
             <ListBox x:Name="sidePanelListBox" ItemTemplate="{StaticResource myTaskTemplate}"></ListBox>

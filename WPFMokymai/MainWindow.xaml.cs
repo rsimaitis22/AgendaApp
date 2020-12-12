@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using AgendaApp.BL;
 using AgendaApp.DL.Models;
 using AgendaApp.BL.Services;
+using AgendaApp.BL.Models;
 
 namespace AgendaApp
 {
@@ -24,29 +25,37 @@ namespace AgendaApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<AgendaItem> AgendaList;
+        private const string windowName = "MainWindow";
+
         List<string> languagesList;
         UiMessagesService messagesService;
-        AgendaManager am = new AgendaManager();
-
+        AgendaManager agendaManager;
+        TranslationsMainWindowObject TranslationsMainWindowObject { get; set; }
         public string SelectedLanguage { get; set; }
 
         public MainWindow()
         {
+            agendaManager = new AgendaManager();
             languagesList = new List<string>() { "EN","LT"};
 
             InitializeComponent();
 
-            SelectedLanguage = "EN";
-            messagesService = new UiMessagesService(SelectedLanguage);
+            InitializeLanguage();
 
             languagesListBox.ItemsSource = languagesList;
 
-            sidePanelListBox.ItemsSource = am.GetAllAgendas();
+            sidePanelListBox.ItemsSource = agendaManager.GetAllAgendas();
             sidePanelScrollViewer.Content = sidePanelListBox;
 
         }
-        private void listBox_SelectedValue(object sender, RoutedEventArgs e)
+
+        private void InitializeLanguage()
+        {
+            SelectedLanguage = "EN";
+            messagesService = new UiMessagesService(SelectedLanguage);
+        }
+
+        private void languagesListBox_SelectedValue(object sender, RoutedEventArgs e)
         {
             var selected = (ListBox)sender;
             SelectedLanguage = selected.SelectedItem.ToString();
@@ -65,6 +74,10 @@ namespace AgendaApp
             ScrollViewer scv = (ScrollViewer)sender;
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta );
             e.Handled = true;
+        }
+        public virtual void TranslateWindowText()
+        {
+            TranslationsMainWindowObject = (TranslationsMainWindowObject)messagesService.GetTranslationsObject(windowName);
         }
     }
 }

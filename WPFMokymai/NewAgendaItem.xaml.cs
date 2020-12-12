@@ -23,16 +23,22 @@ namespace AgendaApp
     /// </summary>
     public partial class NewAgendaItem : Window
     {
+        private const string windowName = "AgendaWindow";
+
         TimeObject TimeObj { get; set; }
         UiMessagesService uiMessagesService { get; }
         AgendaManager agendaManager { get; }
         AgendaItem AgendaItem { get; set; }
         TranslationsAgendaObject TranslationsAgendaObject { get; set; }
 
+        public string SelectedLanguage { get; set; }
+
+
         public NewAgendaItem(string language)
         {
             InitializeComponent();
 
+            SelectedLanguage = language;
             uiMessagesService = new UiMessagesService(language);
             TimeObj = new TimeObject();
             AgendaItem = new AgendaItem();
@@ -44,18 +50,19 @@ namespace AgendaApp
             listBoxHours.ItemsSource = TimeObj.Hours;
         }
 
-        private void TranslateWindowText()
+        public virtual void TranslateWindowText()
         {
-            TranslationsAgendaObject = uiMessagesService.GetAgendaObjectTranslations();
-            Title = TranslationsAgendaObject.AgendaWindowTitle;
-            dayLabel.Content = TranslationsAgendaObject.AgendaDays;
-            cldSample.Text = TranslationsAgendaObject.AgendaDaySelector;
-            hoursLabel.Content = TranslationsAgendaObject.AgendaHours;
-            minutesLabel.Content = TranslationsAgendaObject.AgendaMinutes;
-            titleLabel.Content = TranslationsAgendaObject.AgendaTitle;
-            descriptionLabel.Content = TranslationsAgendaObject.AgendaDescription;
-            saveButton.Content = TranslationsAgendaObject.AgendaItemSaveButtonText;
-            exitButton.Content = TranslationsAgendaObject.AgendaItemExitButtonText;
+            TranslationsAgendaObject = (TranslationsAgendaObject)uiMessagesService.GetTranslationsObject(windowName);
+
+            Title = TranslationsAgendaObject.WindowTitle;
+            dayLabel.Content = TranslationsAgendaObject.Days;
+            cldSample.Text = TranslationsAgendaObject.DaySelector;
+            hoursLabel.Content = TranslationsAgendaObject.Hours;
+            minutesLabel.Content = TranslationsAgendaObject.Minutes;
+            titleLabel.Content = TranslationsAgendaObject.Title;
+            descriptionLabel.Content = TranslationsAgendaObject.Description;
+            saveButton.Content = TranslationsAgendaObject.ItemSaveButtonText;
+            exitButton.Content = TranslationsAgendaObject.ItemExitButtonText;
         }
 
         private void listBoxMinutes_SelectionChanged(object sender, SelectionChangedEventArgs e)

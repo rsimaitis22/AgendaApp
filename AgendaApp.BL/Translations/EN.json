@@ -1,11 +1,23 @@
 {
-        "AgendaWindowTitle":"New agenda",
-        "AgendaTitle":"Title",
-        "AgendaDescription":"Description",
-        "AgendaHours":"Hours",
-        "AgendaMinutes":"Minutes",
-        "AgendaDays":"Day",
-        "AgendaDaySelector":"Choose date",
-        "AgendaItemSaveButtonText":"Save agenda",
-        "AgendaItemExitButtonText":"Exit without saving"    
+  "AgendaWindow": {
+    "WindowTitle": "New agenda",
+    "Title": "Title",
+    "Description": "Description",
+    "Hours": "Hours",
+    "Minutes": "Minutes",
+    "Days": "Day",
+    "DaySelector": "Choose date",
+    "ItemSaveButtonText": "Save agenda",
+    "ItemExitButtonText": "Exit without saving"
+  },
+  "MainWindow": {
+    "Title": "Agenda planner - build your day",
+    "NewAgenda": "Create new agenda",
+    "Week": "Week",
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednsday": "Wednsday",
+    "Thursday": "Thursday",
+    "Friday": "Friday"
+  } 
 }
