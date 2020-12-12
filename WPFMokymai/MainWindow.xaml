@@ -10,7 +10,7 @@
     <Window.Resources>
         <DataTemplate x:Key="myTaskTemplate"  >
             <Border Name="border" BorderBrush="Aqua" BorderThickness="1" HorizontalAlignment="Stretch" Padding="5" Margin="5">
-                <Grid Name="txtListGrid"  Width="250"  >
+                <Grid Name="txtListGrid"  Width="300"  >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -50,12 +50,12 @@
         </Grid.RowDefinitions>
 
         <Button Name="btnCreateNewAgenda" Click="btnCreateNewAgenda_Click"></Button>
+        
         <ListBox x:Name="languagesListBox" SelectionChanged="listBox_SelectedValue" Grid.Column="1" Grid.Row="0"></ListBox>
-        <StackPanel Grid.Row="1" Grid.RowSpan="5" Margin="5">
-            <ListBox x:Name="closestToFinishAgendaListBox" ItemTemplate="{StaticResource myTaskTemplate}">
-
-            </ListBox>
-        </StackPanel>
+        
+        <ScrollViewer x:Name="sidePanelScrollViewer" CanContentScroll="True" PreviewMouseWheel="sidePanelScrollViewer_PreviewMouseWheel" Background="Transparent" Grid.Row="1" Grid.RowSpan="5" Margin="5">
+            <ListBox x:Name="sidePanelListBox" ItemTemplate="{StaticResource myTaskTemplate}"></ListBox>
+        </ScrollViewer>
 
     </Grid>
 </Window>

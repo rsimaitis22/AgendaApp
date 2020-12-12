@@ -27,18 +27,13 @@ namespace AgendaApp
         List<AgendaItem> AgendaList;
         List<string> languagesList;
         UiMessagesService messagesService;
-        
+        AgendaManager am = new AgendaManager();
+
         public string SelectedLanguage { get; set; }
 
         public MainWindow()
         {
             languagesList = new List<string>() { "EN","LT"};
-
-            //DUMMY data
-            AgendaList = new List<AgendaItem>();
-            AgendaList.Add(new AgendaItem() { Id = 1, Title = "Pirmas", Description = "Prausiam suni, perkam maike", IsCompleted = false, IsRepeatable = false, RepeatableInterval = 0, StartDate = DateTime.Now, FinishDate = DateTime.UtcNow });
-            AgendaList.Add(new AgendaItem() { Id = 2, Title = "Antras", Description = "Ispirkti visa tualetini popieriu", IsCompleted = false, IsRepeatable = false, RepeatableInterval = 0, StartDate = DateTime.Now, FinishDate = DateTime.UtcNow });
-            AgendaList.Add(new AgendaItem() { Id = 3, Title = "Trecias", Description = "Nukasti sniega nuo batu", IsCompleted = false, IsRepeatable = false, RepeatableInterval = 0, StartDate = DateTime.Now, FinishDate = DateTime.UtcNow });
 
             InitializeComponent();
 
@@ -46,9 +41,9 @@ namespace AgendaApp
             messagesService = new UiMessagesService(SelectedLanguage);
 
             languagesListBox.ItemsSource = languagesList;
-            closestToFinishAgendaListBox.ItemsSource = AgendaList;
 
-
+            sidePanelListBox.ItemsSource = am.GetAllAgendas();
+            sidePanelScrollViewer.Content = sidePanelListBox;
 
         }
         private void listBox_SelectedValue(object sender, RoutedEventArgs e)
@@ -63,6 +58,13 @@ namespace AgendaApp
         {
             NewAgendaItem item = new NewAgendaItem(SelectedLanguage);
             item.Show();
+        }
+
+        private void sidePanelScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scv = (ScrollViewer)sender;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta );
+            e.Handled = true;
         }
     }
 }
