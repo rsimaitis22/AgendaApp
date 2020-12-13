@@ -60,7 +60,9 @@
     <Compile Include="Models\TranslationsWeeklyReportWindowObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AgendaManager.cs" />
+    <Compile Include="Services\AgendaViewerManager.cs" />
     <Compile Include="Services\UiMessagesService.cs" />
+    <Compile Include="WindowNamesEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />

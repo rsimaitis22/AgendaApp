@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using AgendaApp.BL.Models;
 using AgendaApp.BL.Services;
 using AgendaApp.DL.Models;
+using AgendaApp.BL;
 
 namespace AgendaApp
 {
@@ -25,9 +26,9 @@ namespace AgendaApp
     {
         private const string windowName = "AgendaWindow";
 
-        TimeObject TimeObj { get; set; }
-        UiMessagesService uiMessagesService { get; }
         AgendaManager agendaManager { get; }
+        UiMessagesService uiMessagesService { get; }
+        TimeObject TimeObj { get; set; }
         AgendaItem AgendaItem { get; set; }
         TranslationsAgendaObject TranslationsAgendaObject { get; set; }
 
@@ -103,21 +104,27 @@ namespace AgendaApp
 
         private void btn_saveAndExit(object sender, RoutedEventArgs e)
         {
+            SaveAgendaObject();
+
+            this.Close();
+        }
+
+        public virtual void SaveAgendaObject()
+        {
             DateTime dt = new DateTime(
-                cldSample.SelectedDate.Value.Year,
-                cldSample.SelectedDate.Value.Month,
-                cldSample.SelectedDate.Value.Day,
-                TimeObj.selectedHour,
-                TimeObj.selectedMin, 0);
+                            cldSample.SelectedDate.Value.Year,
+                            cldSample.SelectedDate.Value.Month,
+                            cldSample.SelectedDate.Value.Day,
+                            TimeObj.selectedHour,
+                            TimeObj.selectedMin, 0);
 
             AgendaItem.FinishDate = dt;
             AgendaItem.StartDate = DateTime.UtcNow;
             AgendaItem.IsCompleted = false;
 
             agendaManager.CreateAgenda(AgendaItem);
-
-            this.Close();
         }
+
         private void CheckIfAgendaItemIsCompleted()
         {
             if(AgendaItem.Title != null && AgendaItem.Description != null)

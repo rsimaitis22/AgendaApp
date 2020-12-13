@@ -30,6 +30,7 @@ namespace AgendaApp
         List<string> languagesList;
         UiMessagesService messagesService;
         AgendaManager agendaManager;
+
         TranslationsMainWindowObject TranslationsMainWindowObject { get; set; }
         public string SelectedLanguage { get; set; }
 
@@ -60,6 +61,7 @@ namespace AgendaApp
         {
             var selected = (ListBox)sender;
             SelectedLanguage = selected.SelectedItem.ToString();
+
             //TODO jei egzistuoja vienos kalbos serviso instance kito tokio pat daugiau nekurti
             messagesService = new UiMessagesService(SelectedLanguage);
             TranslateWindowText();

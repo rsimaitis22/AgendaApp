@@ -13,12 +13,15 @@ namespace AgendaApp.BL.Services
 {
     public class UiMessagesService
     {
-        Dictionary<string, string> AgendaTranslations { get; }
-        string translationLanguage { get; }
+        Dictionary<string, Object> translationObject; 
 
-        public UiMessagesService(string TranslationLanguage)
+        public string TranslationLanguage { get; }
+
+        public UiMessagesService(string translationLanguage)
         {
-            translationLanguage = TranslationLanguage;
+            TranslationLanguage = translationLanguage;
+            translationObject = new Dictionary<string, Object>();
+            InitializeTranslationObjects();
         }
 
         public string ReadDataFromFile()
@@ -27,7 +30,7 @@ namespace AgendaApp.BL.Services
             {
                 //TODO dynamic translations path
                 string defaultPath = @"C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Translations\";
-                string path = $"{defaultPath}{translationLanguage}.json";
+                string path = $"{defaultPath}{TranslationLanguage}.json";
                 StringBuilder sb = new StringBuilder();
 
                 using (var reader = new StreamReader(path))
@@ -47,17 +50,16 @@ namespace AgendaApp.BL.Services
                 throw;
             }
         }
-        public object GetTranslationsObject(string windowName)
+        public void InitializeTranslationObjects()
         {
             JObject data = JObject.Parse(ReadDataFromFile());
-            IList<JToken> results = data[windowName].Children().ToList();
 
-            Dictionary<string, Object> translationObject = new Dictionary<string, Object>();
-
-            translationObject.Add("AgendaWindow", JsonConvert.DeserializeObject<TranslationsAgendaObject>(data[windowName].ToString()));
-            translationObject.Add("MainWindow", JsonConvert.DeserializeObject<TranslationsMainWindowObject>(data[windowName].ToString()));
-            translationObject.Add("WeeklyReportWindow", JsonConvert.DeserializeObject<TranslationsWeeklyReportWindowObject>(data[windowName].ToString()));
-            
+            translationObject.Add(WindowNamesEnum.AgendaWindow.ToString(), JsonConvert.DeserializeObject<TranslationsAgendaObject>(data[WindowNamesEnum.AgendaWindow.ToString()].ToString()));
+            translationObject.Add(WindowNamesEnum.MainWindow.ToString(), JsonConvert.DeserializeObject<TranslationsMainWindowObject>(data[WindowNamesEnum.MainWindow.ToString()].ToString()));
+            translationObject.Add(WindowNamesEnum.WeeklyReportWindow.ToString(), JsonConvert.DeserializeObject<TranslationsWeeklyReportWindowObject>(data[WindowNamesEnum.WeeklyReportWindow.ToString()].ToString()));
+        }
+        public object GetTranslationsObject(string windowName)
+        {
             return translationObject[windowName];
         }
     }

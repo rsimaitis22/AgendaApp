@@ -16,7 +16,20 @@ namespace AgendaApp.BL.Services
         {
             agendaItems = new List<AgendaItem>();
         }
-
+        public virtual List<AgendaItem> GetCurrentMonthAgendas()
+        {
+            using (var context = new AgendaDbContext())
+            {
+                return context.AgendaItems.Where(x => x.FinishDate.Month == DateTime.UtcNow.Month).ToList();
+            }
+        }
+        public virtual List<AgendaItem> GetSelectedMonthAgendas(int selectedMonth)
+        {
+            using (var context = new AgendaDbContext())
+            {
+                return context.AgendaItems.Where(x => x.FinishDate.Month == selectedMonth).ToList();
+            }
+        }
         public virtual List<AgendaItem> GetAllAgendas()
         {
             using (var context = new AgendaDbContext())
@@ -24,7 +37,6 @@ namespace AgendaApp.BL.Services
                 return context.AgendaItems.ToList();
             }
         }
-
         public virtual AgendaItem GetAgenda(int id)
         {
             using (var context = new AgendaDbContext())

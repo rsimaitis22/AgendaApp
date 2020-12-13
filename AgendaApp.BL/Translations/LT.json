@@ -19,5 +19,14 @@
     "Wednsday": "Trečiadienis",
     "Thursday": "Ketvirtadienis",
     "Friday": "Penktadienis"
+  },
+  "WeeklyReportWindow": {
+    "Title": "Savaitinė ataskaita",
+    "Week": "Savaitė",
+    "Monday": "Pirmadienis",
+    "Tuesday": "Antradienis",
+    "Wednsday": "Trečiadienis",
+    "Thursday": "Ketvirtadienis",
+    "Friday": "Penktadienis"
   }
 }

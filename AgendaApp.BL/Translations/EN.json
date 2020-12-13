@@ -19,5 +19,14 @@
     "Wednsday": "Wednsday",
     "Thursday": "Thursday",
     "Friday": "Friday"
-  } 
+  },
+  "WeeklyReportWindow": {
+    "Title": "Weekly report",
+    "Week": "Week",
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednsday": "Wednsday",
+    "Thursday": "Thursday",
+    "Friday": "Friday"
+  }
 }
