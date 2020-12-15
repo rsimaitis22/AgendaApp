@@ -8,7 +8,25 @@
     "Days": "Day",
     "DaySelector": "Choose date",
     "ItemSaveButtonText": "Save agenda",
-    "ItemExitButtonText": "Exit without saving"
+    "ItemExitButtonText": "Exit without saving",
+    "Priority": "Priority",
+    "FinishDay": "Ends at",
+    "StartDay": "Starts at",
+    "PriorityList": [
+        {
+            "Id": 1,
+            "Priority": "Low"
+        },
+        {
+            "Id": 2,
+            "Priority": "Medium"
+        },
+        {
+            "Id": 3,
+            "Priority": "High"
+        }
+    ]
+    
   },
   "MainWindow": {
     "Title": "Agenda planner - build your day",
@@ -18,7 +36,10 @@
     "Tuesday": "Tuesday",
     "Wednsday": "Wednsday",
     "Thursday": "Thursday",
-    "Friday": "Friday"
+    "Friday": "Friday",
+    "Priority": "Priority",
+    "Done": "Done",
+    "Language": "Language"
   },
   "WeeklyReportWindow": {
     "Title": "Weekly report",

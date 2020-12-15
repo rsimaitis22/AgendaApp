@@ -25,13 +25,15 @@ namespace AgendaApp
     public partial class NewAgendaItem : Window
     {
         private const string windowName = "AgendaWindow";
+        private const int defaultIndex = 0;
 
         AgendaManager agendaManager { get; }
         UiMessagesService uiMessagesService { get; }
+        
         TimeObject TimeObj { get; set; }
         AgendaItem AgendaItem { get; set; }
         TranslationsAgendaObject TranslationsAgendaObject { get; set; }
-
+        PriorityItem priorityItem { get; set; }
         public string SelectedLanguage { get; set; }
 
 
@@ -40,15 +42,18 @@ namespace AgendaApp
             InitializeComponent();
 
             SelectedLanguage = language;
-            uiMessagesService = new UiMessagesService(language);
             TimeObj = new TimeObject();
             AgendaItem = new AgendaItem();
+            uiMessagesService = new UiMessagesService(language);
             agendaManager = new AgendaManager();
-
+  
             TranslateWindowText();
 
-            listBoxMinutes.ItemsSource = TimeObj.Minutes;
-            listBoxHours.ItemsSource = TimeObj.Hours;
+            lstBoxStartingDayHours.ItemsSource = TimeObj.Hours;
+            lstBoxStartingDayMinutes.ItemsSource = TimeObj.Minutes;
+            lstBoxFinishDayHours.ItemsSource = TimeObj.Hours;
+            lstBoxFinishDayMinutes.ItemsSource = TimeObj.Minutes;
+            cmbBoxPriority.SelectedIndex = defaultIndex;
         }
 
         public virtual void TranslateWindowText()
@@ -56,33 +61,57 @@ namespace AgendaApp
             TranslationsAgendaObject = (TranslationsAgendaObject)uiMessagesService.GetTranslationsObject(windowName);
 
             Title = TranslationsAgendaObject.WindowTitle;
-            dayLabel.Content = TranslationsAgendaObject.Days;
-            cldSample.Text = TranslationsAgendaObject.DaySelector;
-            hoursLabel.Content = TranslationsAgendaObject.Hours;
-            minutesLabel.Content = TranslationsAgendaObject.Minutes;
-            titleLabel.Content = TranslationsAgendaObject.Title;
-            descriptionLabel.Content = TranslationsAgendaObject.Description;
-            saveButton.Content = TranslationsAgendaObject.ItemSaveButtonText;
-            exitButton.Content = TranslationsAgendaObject.ItemExitButtonText;
+            lblFinishDay.Content = TranslationsAgendaObject.Days;
+            cldFinishDay.Text = TranslationsAgendaObject.DaySelector;
+            lblFinishDayHours.Content = TranslationsAgendaObject.Hours;
+            lblFinishDayMinutes.Content = TranslationsAgendaObject.Minutes;
+            lblTitle.Content = TranslationsAgendaObject.Title;
+            lblDescription.Content = TranslationsAgendaObject.Description;
+            btnSave.Content = TranslationsAgendaObject.ItemSaveButtonText;
+            btnExit.Content = TranslationsAgendaObject.ItemExitButtonText;
+            cmbBoxPriority.ItemsSource = TranslationsAgendaObject.PriorityList;
+            lblPriority.Content = TranslationsAgendaObject.Priority;
+            lblStartDayTitle.Content = TranslationsAgendaObject.StartDay;
+            lblFinishDayTitle.Content = TranslationsAgendaObject.FinishDay;
+
+            lblStartingDay.Content = TranslationsAgendaObject.Days;
+            lblStartingDayMinutes.Content = TranslationsAgendaObject.Minutes;
+            lblStartingDayHours.Content = TranslationsAgendaObject.Hours;
         }
 
         private void listBoxMinutes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = (ListBox)sender;
-            var s = selected.SelectedItem;
-            TimeObj.selectedMin = Convert.ToInt32(s);
 
-            listBoxMinutes.Background = new SolidColorBrush(Colors.GreenYellow);
+            if (selected.Name == lstBoxStartingDayMinutes.Name)
+            {
+                TimeObj.selectedStartingMin = Convert.ToInt32(selected.SelectedItem);
+                TimeObj.IsStartingDayMinutesSelected = true;
+            }
+            else if (selected.Name == lstBoxFinishDayMinutes.Name)
+            {
+                TimeObj.selectedFinishMin = Convert.ToInt32(selected.SelectedItem);
+                TimeObj.IsFinishDayMinutesSelected = true;
+            }
+            selected.Background = new SolidColorBrush(Colors.GreenYellow);
 
             CheckIfAgendaItemIsCompleted();
         }
         private void listBoxHours_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = sender as ListBox;
-            var s = selected.SelectedItem;
-            TimeObj.selectedHour = Convert.ToInt32(s);
-
-            listBoxHours.Background = new SolidColorBrush(Colors.GreenYellow);
+            
+            if(selected.Name == lstBoxStartingDayHours.Name)
+            {
+                TimeObj.selectedStartingHour = Convert.ToInt32(selected.SelectedItem);
+                TimeObj.IsStartingDayHourSelected = true;
+            }
+            else if (selected.Name == lstBoxFinishDayHours.Name)
+            {
+                TimeObj.selectedFinishHour = Convert.ToInt32(selected.SelectedItem);
+                TimeObj.IsFinishDayHourSelected = true;
+            }
+            selected.Background = new SolidColorBrush(Colors.GreenYellow);
 
             CheckIfAgendaItemIsCompleted();
         }
@@ -90,8 +119,17 @@ namespace AgendaApp
         private void cldSample_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DatePicker list = (DatePicker)sender;
-            TimeObj.Date = (DateTime)list.SelectedDate;
-
+         
+            if(list.Name == cldStartingDay.Name)
+            {
+                TimeObj.StartingDay = (DateTime)list.SelectedDate;
+                TimeObj.IsStartingDayDaySelected = true;
+            }
+            else if(list.Name == cldFinishDay.Name)
+            {
+                TimeObj.FinishDay = (DateTime)list.SelectedDate;
+                TimeObj.IsFinishDayDaySelected = true;
+            }
             list.Background = new SolidColorBrush(Colors.GreenYellow);
 
             CheckIfAgendaItemIsCompleted();
@@ -104,33 +142,62 @@ namespace AgendaApp
 
         private void btn_saveAndExit(object sender, RoutedEventArgs e)
         {
-            SaveAgendaObject();
+            CreateAgendaObject();
 
             this.Close();
         }
 
-        public virtual void SaveAgendaObject()
+        public virtual void CreateAgendaObject()
         {
-            DateTime dt = new DateTime(
-                            cldSample.SelectedDate.Value.Year,
-                            cldSample.SelectedDate.Value.Month,
-                            cldSample.SelectedDate.Value.Day,
-                            TimeObj.selectedHour,
-                            TimeObj.selectedMin, 0);
-
-            AgendaItem.FinishDate = dt;
-            AgendaItem.StartDate = DateTime.UtcNow;
             AgendaItem.IsCompleted = false;
+            AgendaItem.Priority = priorityItem.Id;
 
             agendaManager.CreateAgenda(AgendaItem);
         }
 
+        private void CreateFinishDate()
+        {
+            if(TimeObj.IsFinishDayDaySelected && TimeObj.IsFinishDayHourSelected && TimeObj.IsFinishDayMinutesSelected)
+                AgendaItem.FinishDate = new DateTime(
+                    TimeObj.FinishDay.Year,
+                    TimeObj.FinishDay.Month,
+                    TimeObj.FinishDay.Day,
+                    TimeObj.selectedFinishHour,
+                    TimeObj.selectedFinishMin,
+                    defaultIndex);
+        }
+
+        private void CreateStartingDate()
+        {
+            if (TimeObj.IsStartingDayDaySelected && TimeObj.IsStartingDayHourSelected && TimeObj.IsStartingDayMinutesSelected)
+                AgendaItem.StartDate = new DateTime(
+                    TimeObj.StartingDay.Year,
+                    TimeObj.StartingDay.Month,
+                    TimeObj.StartingDay.Day,
+                    TimeObj.selectedStartingHour,
+                    TimeObj.selectedStartingMin,
+                    defaultIndex);
+                    }
+
         private void CheckIfAgendaItemIsCompleted()
         {
-            if(AgendaItem.Title != null && AgendaItem.Description != null)
+            if(TimeObj.IsFinishDayDaySelected && TimeObj.IsFinishDayHourSelected && TimeObj.IsFinishDayMinutesSelected)
             {
-                saveButton.IsEnabled = true;
+                CreateFinishDate();
             }
+            if(TimeObj.IsStartingDayDaySelected && TimeObj.IsStartingDayHourSelected && TimeObj.IsStartingDayMinutesSelected)
+            {
+                CreateStartingDate();
+
+            }
+            if (AgendaItem.Description != null && AgendaItem.Title != null && CheckIfDatesAreCorrect())
+                btnSave.IsEnabled = true;
+            else btnSave.IsEnabled = false;
+        }
+
+        private bool CheckIfDatesAreCorrect()
+        {
+            return AgendaItem.StartDate < AgendaItem.FinishDate ? true : false;
         }
 
         private void titleTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -139,29 +206,39 @@ namespace AgendaApp
             
             if (textBoxObj.Text.Length > 0)
             {
-                textBoxObj.Background = new SolidColorBrush(Colors.White);
+                textBoxObj.BorderBrush = new SolidColorBrush(Colors.White);
                 AgendaItem.Title = textBoxObj.Text;
             }
             else
             {
-                textBoxObj.Background = new SolidColorBrush(Colors.PaleVioletRed);
+                textBoxObj.BorderBrush = new SolidColorBrush(Colors.Red);
+                AgendaItem.Title = null;
             }
             CheckIfAgendaItemIsCompleted();
         }
+
         private void descriptionTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBoxObj = (TextBox)sender;
 
             if (textBoxObj.Text.Length > 0)
             {
-                textBoxObj.Background = new SolidColorBrush(Colors.White);
+                textBoxObj.BorderBrush = new SolidColorBrush(Colors.White);
                 AgendaItem.Description = textBoxObj.Text;
             }
             else
             {
-                textBoxObj.Background = new SolidColorBrush(Colors.PaleVioletRed);
+                textBoxObj.BorderBrush = new SolidColorBrush(Colors.Red);
+                AgendaItem.Description = null;
             }
             CheckIfAgendaItemIsCompleted();
+        }
+
+        private void cmbBoxPriority_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedBox = (ComboBox)sender;
+            priorityItem = (PriorityItem)selectedBox.SelectedItem;
+            AgendaItem.Priority = priorityItem.Id;
         }
     }
 }

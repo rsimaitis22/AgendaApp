@@ -17,5 +17,9 @@ namespace AgendaApp.BL.Models
         public string DaySelector { get; set; }
         public string ItemSaveButtonText { get; set; }
         public string ItemExitButtonText { get; set; }
+        public string Priority { get; set; }
+        public List<PriorityItem> PriorityList { get; set; }
+        public string StartDay { get; set; }
+        public string FinishDay { get; set; }
     }
 }

@@ -10,11 +10,8 @@ namespace AgendaApp.BL.Services
 {
     public class AgendaManager
     {
-        public List<AgendaItem> agendaItems { get; set; }
-
         public AgendaManager()
         {
-            agendaItems = new List<AgendaItem>();
         }
         public virtual List<AgendaItem> GetCurrentMonthAgendas()
         {
@@ -44,36 +41,20 @@ namespace AgendaApp.BL.Services
                 return context.AgendaItems.FirstOrDefault(x => x.Id == id);
             }
         }
-        public virtual AgendaItem ModifyAgendaDate(int id, DateTime tempDate)
+        public virtual AgendaItem ModifyAgendaItem(int id, AgendaItem agendaItem)
         {
             using (var context = new AgendaDbContext())
             {
                 var item = context.AgendaItems.FirstOrDefault(x => x.Id == id);
-                item.FinishDate = tempDate;
 
-                context.SaveChanges();
-
-                return item;
-            }
-        }
-        public virtual AgendaItem ModifyAgendaDescription(int id, string description)
-        {
-            using (var context = new AgendaDbContext())
-            {
-                var item = context.AgendaItems.FirstOrDefault(x => x.Id == id);
-                item.Description = description;
-
-                context.SaveChanges();
-
-                return item;
-            }
-        }
-        public virtual AgendaItem ModifyAgendaTitle(int id, string agendaTitle)
-        {
-            using (var context = new AgendaDbContext())
-            {
-                var item = context.AgendaItems.FirstOrDefault(x => x.Id == id);
-                item.Title = agendaTitle;
+                if (item != null)
+                {
+                    item.Description = agendaItem.Description;
+                    item.Title = agendaItem.Title;
+                    item.FinishDate = agendaItem.FinishDate;
+                    item.Priority = agendaItem.Priority;
+                    item.IsCompleted = agendaItem.IsCompleted;
+                }
 
                 context.SaveChanges();
 

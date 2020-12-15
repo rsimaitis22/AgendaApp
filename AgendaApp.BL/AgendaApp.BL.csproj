@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\LanguageItem.cs" />
+    <Compile Include="Models\PriorityItem.cs" />
     <Compile Include="Models\TimeObject.cs" />
     <Compile Include="Models\TranslationsAgendaObject.cs" />
     <Compile Include="Models\TranslationsMainWindowObject.cs" />

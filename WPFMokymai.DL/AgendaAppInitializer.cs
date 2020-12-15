@@ -14,13 +14,13 @@ namespace AgendaApp.DL
                 new AgendaItem(){
                     Id=1,
                     Title="Sukurt duombaze",
-                    Description="Sukurt dummy data duomenu bazei, ir patalpint i ja duomenis",
+                    Description="Sukurt dummy data duomenu bazei, ir patalpint duomenis",
                     StartDate=DateTime.UtcNow,
                     FinishDate=new DateTime(2020,12,14,22,30,0),
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=3
+                    Priority=3
                 },
                 new AgendaItem(){
                     Id=2,
@@ -31,18 +31,18 @@ namespace AgendaApp.DL
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=2
+                    Priority=2
                 },
                 new AgendaItem(){
                     Id=3,
                     Title="Dienu tvarkymas",
-                    Description="Sukurti dienu atvaizdavimo manageri, kuris tvarkytu kiek ir kokiu dienu reikia, atvaizduotu reikiama kieki dienu",
+                    Description="Sukurti dienu atvaizdavimo manageri",
                     StartDate=DateTime.UtcNow,
                     FinishDate=new DateTime(2020,12,14,10,0,0),
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=3
+                    Priority=3
                 },
                 new AgendaItem(){
                     Id=4,
@@ -53,7 +53,7 @@ namespace AgendaApp.DL
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=1
+                    Priority=1
                 },
                 new AgendaItem(){
                     Id=5,
@@ -64,18 +64,18 @@ namespace AgendaApp.DL
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=3
+                    Priority=3
                 },
                 new AgendaItem(){
                     Id=6,
                     Title="Kalbos nustatymas isvaizda",
-                    Description="Sukurti veikianti kalbos pasirinkimo mygtuka, dropdown, ar kazka panasaus",
+                    Description="Sukurti veikianti kalbos pasirinkimo mygtuka, dropdown, ar kazka",
                     StartDate=DateTime.UtcNow,
                     FinishDate=new DateTime(2020,12,12,20,0,0),
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=1
+                    Priority=1
                 },
                 new AgendaItem(){
                     Id=7,
@@ -86,18 +86,18 @@ namespace AgendaApp.DL
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=3
+                    Priority=3
                 },
                 new AgendaItem(){
                     Id=8,
                     Title="Sutvarkyt vertimus",
-                    Description="Sutvarkyt failu nuskaityma kad skaitytu is vieno failo skirtingiems issokanciams langams",
+                    Description="Sutvarkyt failu nuskaityma kad skaitytu is vieno failo",
                     StartDate=DateTime.UtcNow,
                     FinishDate=new DateTime(2020,12,14,17,0,0),
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=2
+                    Priority=2
                 },
                 new AgendaItem(){
                     Id=9,
@@ -108,7 +108,7 @@ namespace AgendaApp.DL
                     IsCompleted=false,
                     IsRepeatable=false,
                     RepeatableInterval=0,
-                    Severity=2
+                    Priority=2
                 },
             };
 

@@ -16,5 +16,9 @@ namespace AgendaApp.BL.Models
         public string Wednsday { get; set; }
         public string Thursday { get; set; }
         public string Friday { get; set; }
+        public string Done { get; set; }
+        public string Priority { get; set; }
+        public string Language { get; set; }
+
     }
 }

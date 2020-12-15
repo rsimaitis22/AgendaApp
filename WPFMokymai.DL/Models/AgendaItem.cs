@@ -14,10 +14,10 @@ namespace AgendaApp.DL.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [MinLength(5),MaxLength(40)]
+        [MaxLength(30)]
         public string Title { get; set; }
         [Required]
-        [MinLength(10),MaxLength(400)]
+        [MaxLength(100)]
         public string Description { get; set; }
         public DateTime? StartDate { get; set; }
         [Required]
@@ -26,6 +26,6 @@ namespace AgendaApp.DL.Models
         public bool IsRepeatable { get; set; }
         public int RepeatableInterval { get; set; }
         [Required]
-        public int Severity { get; set; }
+        public int Priority { get; set; }
     }
 }

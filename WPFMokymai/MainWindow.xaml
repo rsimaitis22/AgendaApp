@@ -5,35 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgendaApp"
         mc:Ignorable="d"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
         Title="MainWindow" Height="520" Width="1400">
 
     <Window.Resources>
-        <DataTemplate x:Key="myTaskTemplate"  >
-            <Border Name="border" BorderBrush="Aqua" BorderThickness="1" HorizontalAlignment="Stretch" Padding="5" Margin="5">
-                <Grid Name="txtListGrid"  Width="300"  >
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+        <DataTemplate x:Key="myTaskTemplate" >
+            <Grid Name="txtListGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Title}" HorizontalAlignment="Left"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Description}" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=StartDate}" HorizontalAlignment="Left"/>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=FinishDate}" HorizontalAlignment="Left"/>
-                </Grid>
-            </Border>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Title}" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Priority}" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Description}" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=StartDate}" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=FinishDate}" HorizontalAlignment="Left"/>
+
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="weekDayTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Numbers}" HorizontalAlignment="Left" ></TextBlock>
+  
+            </Grid>
         </DataTemplate>
     </Window.Resources>
 
+
     <Grid x:Name="mainWindow" Background="#FFE6E6E6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -49,13 +75,43 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Button Name="btnCreateNewAgenda" Click="btnCreateNewAgenda_Click"></Button>
-        
-        <ListBox x:Name="languagesListBox" SelectionChanged="languagesListBox_SelectedValue" Grid.Column="1" Grid.Row="0"></ListBox>
-        
-        <ScrollViewer x:Name="sidePanelScrollViewer" CanContentScroll="True" PreviewMouseWheel="sidePanelScrollViewer_PreviewMouseWheel" Background="Transparent" Grid.Row="1" Grid.RowSpan="5" Margin="5">
-            <ListBox x:Name="sidePanelListBox" ItemTemplate="{StaticResource myTaskTemplate}"></ListBox>
+        <Button Margin="5,10,5,39.5" Name="btnCreateNewAgenda" Click="btnCreateNewAgenda_Click" ></Button>
+        <CheckBox x:Name="chkBoxShowCompleted" Content="Done" HorizontalAlignment="Left" Margin="5,52.7,0,0" />
+        <CheckBox x:Name="chkBoxOrderByPriority" HorizontalAlignment="Left" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="121.353,0,0,5"/>
+
+        <Label Name="lblLanguage" Grid.Column="2"></Label>
+        <ComboBox HorizontalAlignment="Left" 
+                  VerticalAlignment="Center" 
+                  Text="Languages" 
+                  Name="cmbBoxLanguages" 
+                  Height="30" 
+                  Width="100" 
+                  Grid.Column="2" 
+                  SelectionChanged="cmbBox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <ScrollViewer 
+            Grid.Column="0" 
+            Grid.ColumnSpan="2" 
+            x:Name="sidePanelScrollViewer" 
+            CanContentScroll="True" 
+            PreviewMouseWheel="sidePanelScrollViewer_PreviewMouseWheel" 
+            Background="Transparent" 
+            Grid.Row="1" 
+            Grid.RowSpan="5" 
+            Margin="5">
+            <ListBox 
+                x:Name="lstBoxSidePanel" 
+                ItemTemplate="{StaticResource myTaskTemplate}"
+                />
         </ScrollViewer>
 
+        
+        
     </Grid>
 </Window>

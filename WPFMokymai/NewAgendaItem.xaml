@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgendaApp"
         mc:Ignorable="d"
-        Title="" Height="450" Width="600">
-    <Grid>
+        Title="" Height="500" Width="450">
+    <Grid Background="Gainsboro">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -29,37 +29,250 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Name="dayLabel" Grid.Row="4" Grid.Column="5"></Label>
-        <StackPanel Margin="0" Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="2">
-            <DatePicker Background="IndianRed" x:Name="cldSample" SelectedDateChanged="cldSample_SelectedDateChanged"/>
+
+        <StackPanel 
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Grid.RowSpan="6" 
+            Grid.ColumnSpan="8"
+            >
+            <Label 
+                Margin="10 0"
+                Name="lblTitle" 
+                FontSize="20"
+                   />
+            <TextBox  
+                Background="White"
+                BorderBrush="Red"
+                BorderThickness="2"
+                MaxLength="30"
+                FontSize="16"
+                Name="txtBoxTitle" 
+                Height="35" 
+                TextChanged="titleTextBox_TextChanged" 
+                Margin="10 0"
+                />
+            <Label 
+                Margin="10 0"
+                Name="lblDescription" 
+                FontSize="20"
+                />
+            <TextBox  
+                Background="White"
+                BorderBrush="Red"
+                BorderThickness="2"
+                TextWrapping="Wrap"
+                MaxLength="105"
+                FontSize="16"
+                Name="txtBoxDescription" 
+                TextChanged="descriptionTextBox_TextChanged" 
+                Height="100"
+                Margin="10 0"
+                />
         </StackPanel>
 
-        <Label Name="hoursLabel" Grid.Row="3" Grid.Column="5"></Label>
-        <ScrollViewer   VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.Column="6">
+
+        <Label 
+            Name="lblPriority"
+            FontSize="16" 
+            Grid.Row="5" 
+            Grid.Column="2" 
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            Content="Priority"
+            />
+        <ComboBox 
+            Name="cmbBoxPriority"
+            Grid.Column="4"
+            Grid.ColumnSpan="2"
+            Grid.Row="5"
+            SelectionChanged="cmbBoxPriority_SelectionChanged"
+            >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock 
+                        Name="txtBlockPriority" 
+                        Text="{Binding Priority}"
+                        />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label
+            Name="lblStartDayTitle"
+            Grid.Row="6"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="5"
+            FontSize="16">
+            Start Date
+        </Label>
+
+        <Label 
+            Name="lblStartingDay" 
+            Grid.Row="7" 
+            Grid.Column="0"
+            Margin="5"
+               />
+
+        <StackPanel 
+            Margin="30 5 5 0" 
+            Grid.Row="7" 
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+                    >
+            <DatePicker 
+                Margin="10 0"
+                Background="IndianRed" 
+                x:Name="cldStartingDay" 
+                SelectedDateChanged="cldSample_SelectedDateChanged"
+                />
+        </StackPanel>
+
+        <Label 
+            Name="lblStartingDayHours"
+            Margin="5"
+            Grid.Row="7" 
+            Grid.Column="3"
+            Grid.ColumnSpan="2"
+            />
+        <ScrollViewer 
+            VerticalScrollBarVisibility="Auto" 
+            Grid.Row="7"
+            Grid.Column="4"
+            Margin="0 2.5"
+            >
             <StackPanel>
-                <ListBox Background="IndianRed" Name="listBoxMinutes" HorizontalAlignment="Center" Height="30" SelectionChanged="listBoxMinutes_SelectionChanged"></ListBox>
+                <ListBox 
+                    Background="IndianRed" 
+                    Name="lstBoxStartingDayHours" 
+                    HorizontalAlignment="Center" 
+                    Height="30" 
+                    SelectionChanged="listBoxHours_SelectionChanged" 
+                    />
             </StackPanel>
         </ScrollViewer>
 
-        <Label Name="minutesLabel" Grid.Row="2" Grid.Column="5"></Label>
-        <ScrollViewer   VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.Column="6">
-            <StackPanel >
-                <ListBox Background="IndianRed" Name="listBoxHours" HorizontalAlignment="Center" Height="30" SelectionChanged="listBoxHours_SelectionChanged" ></ListBox>
+        <Label Name="lblStartingDayMinutes" 
+               Grid.Row="7" 
+               Grid.Column="5"
+               Margin="0 5"
+               />
+        <ScrollViewer 
+            VerticalScrollBarVisibility="Auto"
+            Margin="0 2.5"
+            Grid.Row="7" 
+            Grid.Column="6"
+            >
+            <StackPanel>
+                <ListBox 
+                    Background="IndianRed" 
+                    Name="lstBoxStartingDayMinutes" 
+                    HorizontalAlignment="Center"
+                    Height="30" SelectionChanged="listBoxMinutes_SelectionChanged"
+                    />
             </StackPanel>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="0" Grid.RowSpan="5" Grid.ColumnSpan="3">
-            <Label Name="titleLabel" FontSize="20"></Label>
-            <TextBox  Background="IndianRed" Name="titleTextBox" Height="20" TextChanged="titleTextBox_TextChanged"></TextBox>
-            <Label Name="descriptionLabel" FontSize="20"></Label>
-            <TextBox  Background="IndianRed" Name="descriptionTextBox" TextChanged="descriptionTextBox_TextChanged" Height="70"></TextBox>
-        </StackPanel>
+        <Label
+            Name="lblFinishDayTitle"
+            Grid.Row="8"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="5"
+            FontSize="16">
+        Finish Date
+        </Label>
+        
+        <Label 
+            Name="lblFinishDay" 
+            Grid.Row="9" 
+            Grid.Column="0"
+            Margin="5"
+               />
 
-        <TextBlock Name="dateAndTimeDisplay" Grid.ColumnSpan="6" Grid.Column="1" HorizontalAlignment="Left" Height="36" FontSize="20" Grid.Row="7" Grid.RowSpan="2" Text="Display date and time: " VerticalAlignment="Top" />
-        <Button Name="saveButton" IsEnabled="False" Background="GreenYellow" Click="btn_saveAndExit" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="10"></Button>
-        <Button Name="exitButton" Background="PaleVioletRed" Click="btn_exitWithoutSaving" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="10"></Button>
+            <StackPanel 
+            Margin="30 5 5 0" 
+            Grid.Row="9" 
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+                    >
+                <DatePicker 
+                Margin="10 0"
+                Background="IndianRed" 
+                x:Name="cldFinishDay" 
+                SelectedDateChanged="cldSample_SelectedDateChanged"
+                />
+            </StackPanel>
+
+            <Label 
+            Name="lblFinishDayHours"
+            Margin="5"
+            Grid.Row="9" 
+            Grid.Column="3"
+            Grid.ColumnSpan="2"
+            />
+            <ScrollViewer 
+            VerticalScrollBarVisibility="Auto" 
+            Grid.Row="9"
+            Grid.Column="4"
+            Margin="0 2.5"
+            >
+                <StackPanel>
+                    <ListBox 
+                    Background="IndianRed" 
+                    Name="lstBoxFinishDayHours" 
+                    HorizontalAlignment="Center" 
+                    Height="30" 
+                    SelectionChanged="listBoxHours_SelectionChanged" 
+                    />
+                </StackPanel>
+            </ScrollViewer>
+
+            <Label Name="lblFinishDayMinutes" 
+               Grid.Row="9" 
+               Grid.Column="5"
+               Margin="0 5"
+               />
+        <ScrollViewer 
+            VerticalScrollBarVisibility="Auto"
+            Margin="0 2.5"
+            Grid.Row="9" 
+            Grid.Column="6"
+            >
+            <StackPanel>
+                <ListBox 
+                    Background="IndianRed" 
+                    Name="lstBoxFinishDayMinutes" 
+                    HorizontalAlignment="Center"
+                    Height="30" SelectionChanged="listBoxMinutes_SelectionChanged"
+                    />
+            </StackPanel>
+        </ScrollViewer>
+
+        
+        <Button 
+            Margin="10 0"
+            Name="btnSave" 
+            IsEnabled="False" 
+            Background="GreenYellow" 
+            Click="btn_saveAndExit" 
+            Grid.Column="0" 
+            Grid.ColumnSpan="4" 
+            Grid.Row="10" 
+            />
+        <Button 
+            BorderThickness="0"
+            Margin="10 0"
+            Name="btnExit" 
+            Background="Red" 
+            Click="btn_exitWithoutSaving" 
+            Grid.Column="4" 
+            Grid.ColumnSpan="4" 
+            Grid.Row="10" 
+            />
     </Grid>
 </Window>

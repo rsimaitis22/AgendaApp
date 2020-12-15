@@ -26,45 +26,45 @@ namespace AgendaApp
     public partial class MainWindow : Window
     {
         private const string windowName = "MainWindow";
+        private const int defaultIndex = 0;
 
-        List<string> languagesList;
         UiMessagesService messagesService;
-        AgendaManager agendaManager;
+        AgendaViewerManager agendaViewerManager;
+        TranslationsMainWindowObject translationsMainWindowObject { get; set; }
 
-        TranslationsMainWindowObject TranslationsMainWindowObject { get; set; }
+        public List<LanguageItem> LanguagesList { get; set; }
         public string SelectedLanguage { get; set; }
+        public List<AgendaItem> AgendaItemList;
 
         public MainWindow()
         {
-            agendaManager = new AgendaManager();
-            languagesList = new List<string>() { "EN","LT"};
+            AgendaItemList = new List<AgendaItem>();
+            agendaViewerManager = new AgendaViewerManager();
+            LanguagesList = new List<LanguageItem>() {
+                new LanguageItem(){Id=1,Name="EN"},
+                new LanguageItem(){Id=2,Name="LT"}
+            };
 
             InitializeComponent();
 
             InitializeLanguage();
             TranslateWindowText();
+            AgendaItemList = agendaViewerManager.GetMonthlyAgendaItems(DateTime.UtcNow.Month);
 
-            languagesListBox.ItemsSource = languagesList;
+            cmbBoxLanguages.SelectedIndex = defaultIndex; 
+            cmbBoxLanguages.ItemsSource = LanguagesList;
 
-            sidePanelListBox.ItemsSource = agendaManager.GetAllAgendas();
-            sidePanelScrollViewer.Content = sidePanelListBox;
+            lstBoxSidePanel.ItemsSource = AgendaItemList;
+            sidePanelScrollViewer.Content = lstBoxSidePanel;
 
+            //lstBoxWeekDays.ItemsSource = timeObj.Numbers;
+            //scrViewerHoursList.Content = lstBoxWeekDays;
         }
 
         private void InitializeLanguage()
         {
             SelectedLanguage = "EN";
             messagesService = new UiMessagesService(SelectedLanguage);
-        }
-
-        private void languagesListBox_SelectedValue(object sender, RoutedEventArgs e)
-        {
-            var selected = (ListBox)sender;
-            SelectedLanguage = selected.SelectedItem.ToString();
-
-            //TODO jei egzistuoja vienos kalbos serviso instance kito tokio pat daugiau nekurti
-            messagesService = new UiMessagesService(SelectedLanguage);
-            TranslateWindowText();
         }
 
         private void btnCreateNewAgenda_Click(object sender, RoutedEventArgs e)
@@ -81,10 +81,23 @@ namespace AgendaApp
         }
         public virtual void TranslateWindowText()
         {
-            TranslationsMainWindowObject = (TranslationsMainWindowObject)messagesService.GetTranslationsObject(windowName);
+            translationsMainWindowObject = (TranslationsMainWindowObject)messagesService.GetTranslationsObject(windowName);
 
-            Title = TranslationsMainWindowObject.Title;
-            btnCreateNewAgenda.Content = TranslationsMainWindowObject.NewAgendaButtonText;
+            Title = translationsMainWindowObject.Title;
+            btnCreateNewAgenda.Content = translationsMainWindowObject.NewAgendaButtonText;
+            chkBoxOrderByPriority.Content = translationsMainWindowObject.Priority;
+            chkBoxShowCompleted.Content = translationsMainWindowObject.Done;
+            lblLanguage.Content = translationsMainWindowObject.Language;
+        }
+
+        private void cmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedBox = (ComboBox)sender;
+            LanguageItem selectedLang = (LanguageItem)selectedBox.SelectedItem;
+            SelectedLanguage = selectedLang.Name;
+            //TODO jei egzistuoja vienos kalbos serviso instance kito tokio pat daugiau nekurti
+            messagesService = new UiMessagesService(SelectedLanguage);
+            TranslateWindowText();
         }
     }
 }
