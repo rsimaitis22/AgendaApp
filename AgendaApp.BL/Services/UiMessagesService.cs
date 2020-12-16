@@ -29,6 +29,8 @@ namespace AgendaApp.BL.Services
             try
             {
                 //TODO dynamic translations path
+
+                string p = Directory.GetCurrentDirectory();
                 string defaultPath = @"C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Translations\";
                 string path = $"{defaultPath}{TranslationLanguage}.json";
                 StringBuilder sb = new StringBuilder();

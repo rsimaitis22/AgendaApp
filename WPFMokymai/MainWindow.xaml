@@ -16,7 +16,7 @@
 
     <Window.Resources>
         <DataTemplate x:Key="myTaskTemplate">
-            <Grid Name="txtListGrid" Background="AntiqueWhite">
+            <Grid Name="txtListGrid" Background="FloralWhite">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -151,6 +151,7 @@
             Grid.Column="3"
             Name="btnPreviousWeek"
             Content="Previous"
+            Click="btnPreviousWeek_Click"
             />
 
         <Label
@@ -174,6 +175,7 @@
             Grid.Column="5"
             Name="btnNextWeek"
             Content="Next"
+            Click="btnNextWeek_Click"
             />
 
 

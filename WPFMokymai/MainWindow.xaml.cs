@@ -35,13 +35,14 @@ namespace AgendaApp
         public List<LanguageItem> LanguagesList { get; set; }
         public string SelectedLanguage { get; set; }
         public List<AgendaItem> AgendaItemList;
+        public WeekObj WeekObject;
 
 
         public MainWindow()
         {
             AgendaItemList = new List<AgendaItem>();
             agendaViewerManager = new AgendaViewerManager();
-            WeekObj weekObject = new WeekObj();
+            WeekObject = new WeekObj();
 
             LanguagesList = new List<LanguageItem>() {
                 new LanguageItem(){Id=1,Name="EN"},
@@ -61,11 +62,7 @@ namespace AgendaApp
             lstBoxSidePanel.ItemsSource = AgendaItemList;
             sidePanelScrollViewer.Content = lstBoxSidePanel;
 
-            lstBoxMonday.ItemsSource = AgendaItemList.Where(x=>x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Day);
-            lstBoxTuesday.ItemsSource = AgendaItemList.Where(x => x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Day); ;
-            lstBoxWednsday.ItemsSource = AgendaItemList.Where(x => x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Wendsday].Day); ;
-            lstBoxThursday.ItemsSource = AgendaItemList.Where(x => x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Day); ;
-            lstBoxFriday.ItemsSource = AgendaItemList.Where(x => x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Day); ;
+            UpdateWeeklyAgendaList();
         }
 
         private void InitializeLanguage()
@@ -135,6 +132,39 @@ namespace AgendaApp
                 lstBoxSidePanel.ItemsSource = AgendaItemList.OrderByDescending(x => x.Priority);
             else 
                 lstBoxSidePanel.ItemsSource = AgendaItemList;
+        }
+
+        private void btnNextWeek_Click(object sender, RoutedEventArgs e)
+        {
+            WeekObject.GetNextWeek();
+
+            if (WeekObject.SelectedWeek[0].Month != WeekObject.SelectedWeek[6].Month)
+            {
+                AgendaItemList.AddRange(agendaViewerManager.GetMonthlyAgendaItems(WeekObject.SelectedWeek[6].Month));
+            }
+
+            UpdateWeeklyAgendaList();
+        }
+
+        private void btnPreviousWeek_Click(object sender, RoutedEventArgs e)
+        {
+            WeekObject.GetPreviousWeek();
+
+            if (WeekObject.SelectedWeek[0].Month != WeekObject.SelectedWeek[6].Month)
+            {
+                AgendaItemList.AddRange(agendaViewerManager.GetMonthlyAgendaItems(WeekObject.SelectedWeek[0].Month));
+            }
+
+            UpdateWeeklyAgendaList();
+        }
+        private void UpdateWeeklyAgendaList()
+        {
+            lblWeekNumber.Content = WeekObject.GetCurrentWeekNumber();
+            lstBoxMonday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Day) && (x.FinishDate.Month==WeekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Month));
+            lstBoxTuesday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Month));
+            lstBoxWednsday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Wendsday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Wendsday].Month));
+            lstBoxThursday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Month));
+            lstBoxFriday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Month));
         }
     }
 } 

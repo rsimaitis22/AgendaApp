@@ -13,28 +13,39 @@ namespace AgendaApp.BL.Models
 
         DateTime weekStart;
         
-        public DateTime[] SelectedWeek = new DateTime[daysInWeek];
+        public DateTime[] SelectedWeek { get; set; } 
 
         public WeekObj()
         {
+            SelectedWeek = new DateTime[daysInWeek];
             GetCurrentWeekDates();
         }
         public void GetCurrentWeekDates()
         {
             var daysTillCurrentDay = DateTime.UtcNow.DayOfWeek - DayOfWeek.Monday;
             weekStart = DateTime.Now.AddDays(-daysTillCurrentDay);
-
+            UpdateDays();
+        }
+        public double GetCurrentWeekNumber()
+        {
+            return Math.Ceiling((double)(weekStart.DayOfYear + daysWithoutMonday) / daysInWeek);
+        }
+        public void GetPreviousWeek()
+        {
+            weekStart = weekStart.AddDays(-daysInWeek);
+            UpdateDays();
+        }
+        public void GetNextWeek()
+        {
+            weekStart = weekStart.AddDays(daysInWeek);
+            UpdateDays();
+        }
+        private void UpdateDays()
+        {
             for (int i = 0; i < daysInWeek; i++)
             {
                 SelectedWeek[i] = weekStart.AddDays(i);
             }
-        }
-        public double GetCurrentWeek()
-        {
-            var daysTillCurrentDay = DateTime.UtcNow.DayOfWeek - DayOfWeek.Monday;
-            DateTime weekStart = DateTime.Now.AddDays(-daysTillCurrentDay);
-
-            return Math.Ceiling((double)(weekStart.DayOfYear + daysWithoutMonday) / daysInWeek);
         }
     }
     public enum DayOfWeekEnum
