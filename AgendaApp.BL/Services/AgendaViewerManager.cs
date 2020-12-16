@@ -16,24 +16,18 @@ namespace AgendaApp.BL.Services
         {
             agendaManager = new AgendaManager();
             agendaDictionary = new Dictionary<int, List<AgendaItem>>();
-            InitializeCurrentMonth();
-        }
-        public void InitializeCurrentMonth()
-        {
-            agendaDictionary.Add(DateTime.UtcNow.Month,agendaManager.GetCurrentMonthAgendas());
         }
         public List<AgendaItem> GetMonthlyAgendaItems(int month)
         {
             List<AgendaItem> items = new List<AgendaItem>();
-            if (!agendaDictionary.ContainsKey(month))
-                AddMonthAgendasToDictionary(month);
+            CheckIfAgendaIsInDictionary(month);
 
             agendaDictionary.TryGetValue(month, out items);
 
             return items;
         }
 
-        private void AddMonthAgendasToDictionary(int month)
+        private void CheckIfAgendaIsInDictionary(int month)
         {
             if (!agendaDictionary.ContainsKey(month))
                 agendaDictionary.Add(month, agendaManager.GetSelectedMonthAgendas(month));

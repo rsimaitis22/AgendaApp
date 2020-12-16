@@ -45,7 +45,7 @@ namespace AgendaApp.BL.Services
             }
             catch (FileNotFoundException e)
             {
-                Console.WriteLine("FileNot found");
+                Console.WriteLine("Translation file not found");
                 Console.WriteLine(e.Message);
                 throw;
             }

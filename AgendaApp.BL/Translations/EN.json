@@ -38,8 +38,10 @@
     "Thursday": "Thursday",
     "Friday": "Friday",
     "Priority": "Priority",
-    "Done": "Done",
-    "Language": "Language"
+    "Nearest": "Nearest",
+    "Language": "Language",
+    "Previous": "Previous",
+    "Next": "Next"
   },
   "WeeklyReportWindow": {
     "Title": "Weekly report",

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace AgendaApp.DL
 {
@@ -9,108 +10,28 @@ namespace AgendaApp.DL
     {
         protected override void Seed(AgendaDbContext context)
         {
-            List<AgendaItem> agendaItems = new List<AgendaItem>()
+            string title = "dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+            List<string> titleList = title.Split(' ').ToList();
+
+            Random r = new Random();
+            List<AgendaItem> agendaItems = new List<AgendaItem>();
+
+            for (int i = 0; i < 3000; i++)
             {
-                new AgendaItem(){
-                    Id=1,
-                    Title="Sukurt duombaze",
-                    Description="Sukurt dummy data duomenu bazei, ir patalpint duomenis",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,14,22,30,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=3
-                },
-                new AgendaItem(){
-                    Id=2,
-                    Title="Main Window list boxai",
-                    Description="Sukurti sablona ListBox, pagrindiniame lange",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,13,20,0,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=2
-                },
-                new AgendaItem(){
-                    Id=3,
-                    Title="Dienu tvarkymas",
-                    Description="Sukurti dienu atvaizdavimo manageri",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,14,10,0,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=3
-                },
-                new AgendaItem(){
-                    Id=4,
-                    Title="Artimiausi ivykiai ListBox",
-                    Description="Sukurti artimiausiu ivykiu listbox sablona",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,12,22,0,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=1
-                },
-                new AgendaItem(){
-                    Id=5,
-                    Title="Agenda manager fix",
-                    Description="Agenda manager turetu grazint dienos, savaites, menesio irasus",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,14,21,30,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=3
-                },
-                new AgendaItem(){
-                    Id=6,
-                    Title="Kalbos nustatymas isvaizda",
-                    Description="Sukurti veikianti kalbos pasirinkimo mygtuka, dropdown, ar kazka",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,12,20,0,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=1
-                },
-                new AgendaItem(){
-                    Id=7,
-                    Title="Failu nuskaitymo manageris",
-                    Description="Sukurti failu nuskaitymo manager, kalbu nuskaitymui",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,13,17,0,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=3
-                },
-                new AgendaItem(){
-                    Id=8,
-                    Title="Sutvarkyt vertimus",
-                    Description="Sutvarkyt failu nuskaityma kad skaitytu is vieno failo",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,14,17,0,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=2
-                },
-                new AgendaItem(){
-                    Id=9,
-                    Title="Sugalvot svarbos atvaizdavima",
-                    Description="Sugalvot kaip atvaizduojama iraso svarba",
-                    StartDate=DateTime.UtcNow,
-                    FinishDate=new DateTime(2020,12,14,10,0,0),
-                    IsCompleted=false,
-                    IsRepeatable=false,
-                    RepeatableInterval=0,
-                    Priority=2
-                },
-            };
+                int month = r.Next(1, 13);
+                int day = r.Next(1, 15);
+
+                agendaItems.Add(new AgendaItem()
+                {
+                    Title = titleList[r.Next(0, titleList.Count)],
+                    Description = $"{titleList[r.Next(0, titleList.Count)]} {titleList[r.Next(0, titleList.Count)]} {titleList[r.Next(0, titleList.Count)]}",
+                    StartDate = new DateTime(2020, month, day),
+                    FinishDate = new DateTime(2020, month, day + r.Next(1, 14)),
+                    IsCompleted = false,
+                    Priority = r.Next(1, 4)
+                }); 
+            }
+
 
             context.AgendaItems.AddRange(agendaItems);
         }

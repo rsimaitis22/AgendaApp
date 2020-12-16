@@ -46,7 +46,6 @@ namespace AgendaApp.BL.Models
             {
                 Minutes[i] = i;
             }
-            
         }
     }
 }

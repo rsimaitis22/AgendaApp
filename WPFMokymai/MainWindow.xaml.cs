@@ -36,10 +36,13 @@ namespace AgendaApp
         public string SelectedLanguage { get; set; }
         public List<AgendaItem> AgendaItemList;
 
+
         public MainWindow()
         {
             AgendaItemList = new List<AgendaItem>();
             agendaViewerManager = new AgendaViewerManager();
+            WeekObj weekObject = new WeekObj();
+
             LanguagesList = new List<LanguageItem>() {
                 new LanguageItem(){Id=1,Name="EN"},
                 new LanguageItem(){Id=2,Name="LT"}
@@ -49,6 +52,7 @@ namespace AgendaApp
 
             InitializeLanguage();
             TranslateWindowText();
+
             AgendaItemList = agendaViewerManager.GetMonthlyAgendaItems(DateTime.UtcNow.Month);
 
             cmbBoxLanguages.SelectedIndex = defaultIndex; 
@@ -57,8 +61,11 @@ namespace AgendaApp
             lstBoxSidePanel.ItemsSource = AgendaItemList;
             sidePanelScrollViewer.Content = lstBoxSidePanel;
 
-            //lstBoxWeekDays.ItemsSource = timeObj.Numbers;
-            //scrViewerHoursList.Content = lstBoxWeekDays;
+            lstBoxMonday.ItemsSource = AgendaItemList.Where(x=>x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Day);
+            lstBoxTuesday.ItemsSource = AgendaItemList.Where(x => x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Day); ;
+            lstBoxWednsday.ItemsSource = AgendaItemList.Where(x => x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Wendsday].Day); ;
+            lstBoxThursday.ItemsSource = AgendaItemList.Where(x => x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Day); ;
+            lstBoxFriday.ItemsSource = AgendaItemList.Where(x => x.FinishDate.Day == weekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Day); ;
         }
 
         private void InitializeLanguage()
@@ -86,8 +93,16 @@ namespace AgendaApp
             Title = translationsMainWindowObject.Title;
             btnCreateNewAgenda.Content = translationsMainWindowObject.NewAgendaButtonText;
             chkBoxOrderByPriority.Content = translationsMainWindowObject.Priority;
-            chkBoxShowCompleted.Content = translationsMainWindowObject.Done;
+            chkBoxShowNearest.Content = translationsMainWindowObject.Nearest;
             lblLanguage.Content = translationsMainWindowObject.Language;
+            lblMonday.Content = translationsMainWindowObject.Monday;
+            lblTuesday.Content = translationsMainWindowObject.Tuesday;
+            lblWednsday.Content = translationsMainWindowObject.Wednsday;
+            lblThursday.Content = translationsMainWindowObject.Thursday;
+            lblFriday.Content = translationsMainWindowObject.Friday;
+            lblWeekName.Content = translationsMainWindowObject.Week;
+            btnNextWeek.Content = translationsMainWindowObject.Next;
+            btnPreviousWeek.Content = translationsMainWindowObject.Previous;
         }
 
         private void cmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -95,9 +110,31 @@ namespace AgendaApp
             var selectedBox = (ComboBox)sender;
             LanguageItem selectedLang = (LanguageItem)selectedBox.SelectedItem;
             SelectedLanguage = selectedLang.Name;
+
             //TODO jei egzistuoja vienos kalbos serviso instance kito tokio pat daugiau nekurti
             messagesService = new UiMessagesService(SelectedLanguage);
             TranslateWindowText();
         }
+
+        private void chkBoxShowNearest_Checked(object sender, RoutedEventArgs e)
+        {
+            var check = (CheckBox)sender;
+
+            if (check.IsChecked==true)
+                lstBoxSidePanel.ItemsSource = AgendaItemList.Where(x=>x.FinishDate > DateTime.Now).OrderBy(x => x.FinishDate);
+            else
+                lstBoxSidePanel.ItemsSource = AgendaItemList;
+            
+        }
+
+        private void chkBoxOrderByPriority_Checked(object sender, RoutedEventArgs e)
+        {
+            var check = (CheckBox)sender;
+
+            if (check.IsChecked == true)
+                lstBoxSidePanel.ItemsSource = AgendaItemList.OrderByDescending(x => x.Priority);
+            else 
+                lstBoxSidePanel.ItemsSource = AgendaItemList;
+        }
     }
-}
+} 

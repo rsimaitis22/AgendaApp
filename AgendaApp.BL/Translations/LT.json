@@ -37,8 +37,10 @@
         "Thursday": "Ketvirtadienis",
         "Friday": "Penktadienis",
         "Priority": "Prioritetas",
-        "Done": "Baigti",
-        "Language": "Kalba"
+        "Nearest": "Artimiausi",
+        "Language": "Kalba",
+        "Previous": "Praeita",
+        "Next": "Sekanti"
     },
   "WeeklyReportWindow": {
     "Title": "Savaitinė ataskaita",

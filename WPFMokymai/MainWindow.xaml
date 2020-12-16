@@ -12,11 +12,11 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Title="MainWindow" Height="520" Width="1400">
+        Title="MainWindow" Height="520" Width="1400" MinHeight="520">
 
     <Window.Resources>
-        <DataTemplate x:Key="myTaskTemplate" >
-            <Grid Name="txtListGrid">
+        <DataTemplate x:Key="myTaskTemplate">
+            <Grid Name="txtListGrid" Background="AntiqueWhite">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -25,32 +25,44 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition MinWidth="200" Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Title}" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Priority}" HorizontalAlignment="Right"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Description}" TextWrapping="Wrap" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=StartDate}" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=FinishDate}" HorizontalAlignment="Left"/>
+                <TextBlock 
+                    Grid.Row="0" 
+                    Grid.Column="0"
+                    Text="{Binding Path=Title}" 
+                    HorizontalAlignment="Left"
+                    Margin="5"/>
+                <TextBlock 
+                    Grid.Row="0" 
+                    Grid.Column="2" 
+                    Grid.ColumnSpan="1" 
+                    Text="{Binding Path=Priority}" 
+                    HorizontalAlignment="Right"/>
+                <TextBlock 
+                    Grid.Row="1" 
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    Text="{Binding Path=Description}"
+                    TextWrapping="Wrap" 
+                    HorizontalAlignment="Left"/>
+                <TextBlock 
+                    Grid.Row="2" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="2" 
+                    Text="{Binding Path=StartDate}" 
+                    HorizontalAlignment="Center"
+                    />
+                <TextBlock 
+                    Grid.Row="3" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="2" 
+                    Text="{Binding Path=FinishDate}" 
+                    HorizontalAlignment="Center"/>
 
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="weekDayTemplate">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Numbers}" HorizontalAlignment="Left" ></TextBlock>
-  
             </Grid>
         </DataTemplate>
     </Window.Resources>
@@ -60,11 +72,11 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -76,18 +88,40 @@
         </Grid.RowDefinitions>
 
         <Button Margin="5,10,5,39.5" Name="btnCreateNewAgenda" Click="btnCreateNewAgenda_Click" ></Button>
-        <CheckBox x:Name="chkBoxShowCompleted" Content="Done" HorizontalAlignment="Left" Margin="5,52.7,0,0" />
-        <CheckBox x:Name="chkBoxOrderByPriority" HorizontalAlignment="Left" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="121.353,0,0,5"/>
+        <CheckBox 
+            x:Name="chkBoxShowNearest" 
+            Content="Done"
+            VerticalAlignment="Bottom"
+            Grid.Column="0"
+            Grid.Row="0"
+            Checked="chkBoxShowNearest_Checked" 
+            Unchecked="chkBoxShowNearest_Checked"
+            />
+        <CheckBox 
+            x:Name="chkBoxOrderByPriority" 
+            Grid.Column="1" 
+            Grid.Row="0"
+            VerticalAlignment="Bottom" 
+            Checked="chkBoxOrderByPriority_Checked" 
+            Unchecked="chkBoxOrderByPriority_Checked"
+            />
 
-        <Label Name="lblLanguage" Grid.Column="2"></Label>
-        <ComboBox HorizontalAlignment="Left" 
-                  VerticalAlignment="Center" 
-                  Text="Languages" 
-                  Name="cmbBoxLanguages" 
-                  Height="30" 
-                  Width="100" 
-                  Grid.Column="2" 
-                  SelectionChanged="cmbBox_SelectionChanged">
+        <Label 
+            Name="lblLanguage" 
+            Grid.Column="1"
+            Margin="5 -50 0 0"
+            VerticalAlignment="Center"
+            />
+        <ComboBox 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            Text="Languages" 
+            Name="cmbBoxLanguages" 
+            Height="30" 
+            Width="100" 
+            Grid.Column="1" 
+            Margin="5"
+            SelectionChanged="cmbBox_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"></TextBlock>
@@ -96,6 +130,8 @@
         </ComboBox>
 
         <ScrollViewer 
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            FontSize="20"
             Grid.Column="0" 
             Grid.ColumnSpan="2" 
             x:Name="sidePanelScrollViewer" 
@@ -111,7 +147,124 @@
                 />
         </ScrollViewer>
 
+        <Button
+            Grid.Column="3"
+            Name="btnPreviousWeek"
+            Content="Previous"
+            />
+
+        <Label
+            Grid.Column="4"
+            Margin="30"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Name="lblWeekNumber"
+            Content="52"   
+            />
+        <Label
+            Grid.Column="4"
+            Margin="30"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Name="lblWeekName"
+            Content="Week"   
+            />
+
+        <Button 
+            Grid.Column="5"
+            Name="btnNextWeek"
+            Content="Next"
+            />
+
+
+
+        <Label
+            Name="lblMonday" 
+            Grid.Column="2"
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            >monday</Label>
+        <Label
+            Name="lblTuesday" 
+            Grid.Column="3"
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            >tuesday</Label>
+        <Label
+            Name="lblWednsday" 
+            Grid.Column="4"
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            >wednsday</Label>
+        <Label
+            Name="lblThursday" 
+            Grid.Column="5"
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            >thurdsay</Label>
+        <Label
+            Name="lblFriday" 
+            Grid.Column="6"
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            >friday</Label>
         
-        
+        <ListBox
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            FontSize="10"
+            Grid.Row="1"
+            Grid.Column="2"
+            Grid.RowSpan="5"
+            x:Name="lstBoxMonday"
+            HorizontalAlignment="Center"
+            ItemTemplate="{StaticResource myTaskTemplate}">
+        </ListBox>
+        <ListBox
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            FontSize="10"
+            Grid.Row="1"
+            Grid.Column="3"
+            Grid.RowSpan="5"
+            x:Name="lstBoxTuesday"
+            HorizontalAlignment="Center"
+            ItemTemplate="{StaticResource myTaskTemplate}">
+        </ListBox>
+        <ListBox
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            FontSize="10"
+            Grid.Row="1"
+            Grid.Column="4"
+            Grid.RowSpan="5"
+            x:Name="lstBoxWednsday"
+            HorizontalAlignment="Center"
+            ItemTemplate="{StaticResource myTaskTemplate}">
+        </ListBox>
+        <ListBox
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            FontSize="10"
+            Grid.Row="1"
+            Grid.Column="5"
+            Grid.RowSpan="5"
+            x:Name="lstBoxThursday"
+            HorizontalAlignment="Center"
+            ItemTemplate="{StaticResource myTaskTemplate}">
+        </ListBox>
+        <ListBox
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            FontSize="10"
+            Grid.Row="1"
+            Grid.Column="6"
+            Grid.RowSpan="5"
+            x:Name="lstBoxFriday"
+            HorizontalAlignment="Center"
+            ItemTemplate="{StaticResource myTaskTemplate}">
+        </ListBox>
+
+
     </Grid>
 </Window>
