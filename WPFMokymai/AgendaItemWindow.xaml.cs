@@ -2,6 +2,7 @@
 using AgendaApp.BL.Models;
 using AgendaApp.BL.Services;
 using AgendaApp.DL.Models;
+using System;
 using System.Windows;
 
 namespace WPFMokymai
@@ -16,6 +17,9 @@ namespace WPFMokymai
         TranslationsAgendaObject translationsAgendaObject;
         AgendaItem agendaItem;
 
+        public delegate void DataChangedEventHandler(object sender, EventArgs e);
+        public event DataChangedEventHandler DataChanged;
+
         public AgendaItemWindow(AgendaItem agenda,string translationLanguage)
         {
             agendaManager = new AgendaManager();
@@ -23,11 +27,12 @@ namespace WPFMokymai
             agendaItem = new AgendaItem();
 
             InitializeComponent();
-            TranslateWindowText();
 
             agendaItem = agenda;
             lblAgendaItemTitle.Content = agenda.Title;
             lblAgendaItemDescription.Content = agenda.Description;
+
+            TranslateWindowText();
         }
 
         public virtual void TranslateWindowText()
@@ -37,12 +42,20 @@ namespace WPFMokymai
             lblDescription.Content = translationsAgendaObject.Description;
             btnExit.Content = translationsAgendaObject.ItemExitButtonText;
             btnMarkCompleted.Content = translationsAgendaObject.MarkCompleted;
+            lblFinishTime.Content = $"{translationsAgendaObject.EstimatedFinish} : {agendaItem.FinishDate}";
         }
 
         private void btnMarkCompleted_Click(object sender, RoutedEventArgs e)
         {
             agendaItem.IsCompleted = true;
             agendaManager.ModifyAgendaItem(agendaItem);
+
+            DataChangedEventHandler handler = DataChanged;
+            if (handler != null)
+            {
+                handler(this, new EventArgs());
+            }
+
             this.Close();
         }
 

@@ -18,7 +18,7 @@
         <DataTemplate x:Key="myTaskTemplate">
             <Grid Name="txtListGrid" 
                   PreviewMouseDown="txtListGrid_PreviewMouseDown"
-                  Background="LightSteelBlue"   >
+                  Background="LightGray"    >
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -70,7 +70,7 @@
     </Window.Resources>
 
 
-    <Grid x:Name="mainWindow" Background="#FFE6E6E6">
+    <Grid x:Name="mainWindow" Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>

@@ -62,6 +62,8 @@ namespace AgendaApp
         private void btnCreateNewAgenda_Click(object sender, RoutedEventArgs e)
         {
             NewAgendaItem item = new NewAgendaItem(selectedLanguage);
+            item.DataChanged += AgendaItemWindow_DataChanged;
+
             item.Show();
         }
 
@@ -142,31 +144,43 @@ namespace AgendaApp
 
             lstBoxMonday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
                 weekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Month,
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Day).OrderBy(x=>x.FinishDate);
+                weekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Day).Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year).OrderBy(x=>x.FinishDate);
 
             lstBoxTuesday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
                 weekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Month,
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Day).OrderBy(x => x.FinishDate);
+                weekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Day).Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year).OrderBy(x => x.FinishDate);
 
             lstBoxWednsday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
                 weekObject.SelectedWeek[(int)DayOfWeekEnum.Wednsday].Month,
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Wednsday].Day).OrderBy(x => x.FinishDate);
+                weekObject.SelectedWeek[(int)DayOfWeekEnum.Wednsday].Day).Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year).OrderBy(x => x.FinishDate);
 
             lstBoxThursday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
                 weekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Month,
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Day).OrderBy(x => x.FinishDate);
+                weekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Day).Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year).OrderBy(x => x.FinishDate);
 
             lstBoxFriday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
                 weekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Month, 
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Day).OrderBy(x => x.FinishDate);
+                weekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Day).Where(x=>x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year).OrderBy(x => x.FinishDate);
+
+            lstBoxSidePanel.ItemsSource = agendaViewerManager.GetNotCompletedAgendaItems(DateTime.UtcNow.Month);
         }
 
         private void txtListGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             var context = (Grid)sender;
             var agendaItem = context.DataContext;
+
             AgendaItemWindow agendaWindow = new AgendaItemWindow((AgendaItem)agendaItem, selectedLanguage);
+
+            agendaWindow.DataChanged += AgendaItemWindow_DataChanged;
+            
             agendaWindow.Show();
         }
+
+        private void AgendaItemWindow_DataChanged(object sender, EventArgs e)
+        {
+            UpdateWeeklyAgendaList();
+        }
+
     }
 } 

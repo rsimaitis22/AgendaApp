@@ -13,6 +13,7 @@
         "FinishDay": "Baigiasi",
         "StartDay": "Prasideda",
         "MarkCompleted": "Užbaigti įvykį",
+        "EstimatedFinish": "Numatyta pabaiga",
         "PriorityList": [
             {
                 "Id": 1,

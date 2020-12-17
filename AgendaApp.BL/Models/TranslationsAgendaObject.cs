@@ -18,5 +18,6 @@ namespace AgendaApp.BL.Models
         public string StartDay { get; set; }
         public string FinishDay { get; set; }
         public string MarkCompleted { get; set; }
+        public string EstimatedFinish { get; set; }
     }
 }

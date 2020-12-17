@@ -22,6 +22,8 @@ namespace AgendaApp
         TranslationsAgendaObject translationsAgendaObject;
         PriorityItem priorityItem;
 
+        public delegate void DataChangedEventHandler(object sender, EventArgs e);
+        public event DataChangedEventHandler DataChanged;
 
         public NewAgendaItem(string language)
         {
@@ -128,6 +130,12 @@ namespace AgendaApp
         private void btn_saveAndExit(object sender, RoutedEventArgs e)
         {
             CreateAgendaObject();
+
+            DataChangedEventHandler handler = DataChanged;
+            if (handler != null)
+            {
+                handler(this, new EventArgs());
+            }
 
             this.Close();
         }

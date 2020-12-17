@@ -64,7 +64,7 @@
                 BorderBrush="Red"
                 BorderThickness="2"
                 TextWrapping="Wrap"
-                MaxLength="105"
+                MaxLength="100"
                 FontSize="16"
                 x:Name="txtBoxDescription" 
                 TextChanged="descriptionTextBox_TextChanged" 
