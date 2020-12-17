@@ -16,7 +16,9 @@
 
     <Window.Resources>
         <DataTemplate x:Key="myTaskTemplate">
-            <Grid Name="txtListGrid" Background="FloralWhite">
+            <Grid Name="txtListGrid" 
+                  PreviewMouseDown="txtListGrid_PreviewMouseDown"
+                  Background="LightSteelBlue"   >
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -29,7 +31,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock 
+                <TextBlock
                     Grid.Row="0" 
                     Grid.Column="0"
                     Text="{Binding Path=Title}" 
@@ -87,7 +89,11 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Button Margin="5,10,5,39.5" Name="btnCreateNewAgenda" Click="btnCreateNewAgenda_Click" ></Button>
+        <Button
+            Margin="5,10,5,39.5" 
+            x:Name="btnCreateNewAgenda" 
+            Click="btnCreateNewAgenda_Click"
+            />
         <CheckBox 
             x:Name="chkBoxShowNearest" 
             Content="Done"
@@ -107,7 +113,7 @@
             />
 
         <Label 
-            Name="lblLanguage" 
+            x:Name="lblLanguage" 
             Grid.Column="1"
             Margin="5 -50 0 0"
             VerticalAlignment="Center"
@@ -116,7 +122,7 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Text="Languages" 
-            Name="cmbBoxLanguages" 
+            x:Name="cmbBoxLanguages" 
             Height="30" 
             Width="100" 
             Grid.Column="1" 
@@ -130,6 +136,7 @@
         </ComboBox>
 
         <ScrollViewer 
+            
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
             FontSize="20"
             Grid.Column="0" 
@@ -142,6 +149,7 @@
             Grid.RowSpan="5" 
             Margin="5">
             <ListBox 
+                
                 x:Name="lstBoxSidePanel" 
                 ItemTemplate="{StaticResource myTaskTemplate}"
                 />
@@ -149,7 +157,7 @@
 
         <Button
             Grid.Column="3"
-            Name="btnPreviousWeek"
+            x:Name="btnPreviousWeek"
             Content="Previous"
             Click="btnPreviousWeek_Click"
             />
@@ -159,7 +167,7 @@
             Margin="30"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
-            Name="lblWeekNumber"
+            x:Name="lblWeekNumber"
             Content="52"   
             />
         <Label
@@ -167,13 +175,13 @@
             Margin="30"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Name="lblWeekName"
+            x:Name="lblWeekName"
             Content="Week"   
             />
 
         <Button 
             Grid.Column="5"
-            Name="btnNextWeek"
+            x:Name="btnNextWeek"
             Content="Next"
             Click="btnNextWeek_Click"
             />
@@ -181,35 +189,35 @@
 
 
         <Label
-            Name="lblMonday" 
+            x:Name="lblMonday" 
             Grid.Column="2"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >monday</Label>
         <Label
-            Name="lblTuesday" 
+            x:Name="lblTuesday" 
             Grid.Column="3"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >tuesday</Label>
         <Label
-            Name="lblWednsday" 
+            x:Name="lblWednsday" 
             Grid.Column="4"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >wednsday</Label>
         <Label
-            Name="lblThursday" 
+            x:Name="lblThursday" 
             Grid.Column="5"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >thurdsay</Label>
         <Label
-            Name="lblFriday" 
+            x:Name="lblFriday" 
             Grid.Column="6"
             Grid.Row="0"
             VerticalAlignment="Bottom"

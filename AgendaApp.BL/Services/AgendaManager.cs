@@ -41,11 +41,11 @@ namespace AgendaApp.BL.Services
                 return context.AgendaItems.FirstOrDefault(x => x.Id == id);
             }
         }
-        public virtual AgendaItem ModifyAgendaItem(int id, AgendaItem agendaItem)
+        public virtual AgendaItem ModifyAgendaItem(AgendaItem agendaItem)
         {
             using (var context = new AgendaDbContext())
             {
-                var item = context.AgendaItems.FirstOrDefault(x => x.Id == id);
+                var item = context.AgendaItems.FirstOrDefault(x => x.Id == agendaItem.Id);
 
                 if (item != null)
                 {

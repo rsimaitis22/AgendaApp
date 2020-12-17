@@ -34,14 +34,12 @@ namespace AgendaApp
         AgendaItem AgendaItem { get; set; }
         TranslationsAgendaObject TranslationsAgendaObject { get; set; }
         PriorityItem priorityItem { get; set; }
-        public string SelectedLanguage { get; set; }
 
 
         public NewAgendaItem(string language)
         {
             InitializeComponent();
 
-            SelectedLanguage = language;
             TimeObj = new TimeObject();
             AgendaItem = new AgendaItem();
             uiMessagesService = new UiMessagesService(language);
@@ -99,7 +97,7 @@ namespace AgendaApp
         }
         private void listBoxHours_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selected = sender as ListBox;
+            var selected = (ListBox)sender;
             
             if(selected.Name == lstBoxStartingDayHours.Name)
             {

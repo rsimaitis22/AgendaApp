@@ -17,6 +17,7 @@ using AgendaApp.BL;
 using AgendaApp.DL.Models;
 using AgendaApp.BL.Services;
 using AgendaApp.BL.Models;
+using WPFMokymai;
 
 namespace AgendaApp
 {
@@ -59,10 +60,11 @@ namespace AgendaApp
             cmbBoxLanguages.SelectedIndex = defaultIndex; 
             cmbBoxLanguages.ItemsSource = LanguagesList;
 
-            lstBoxSidePanel.ItemsSource = AgendaItemList;
+            lstBoxSidePanel.ItemsSource = AgendaItemList.Where(x=>!x.IsCompleted);
             sidePanelScrollViewer.Content = lstBoxSidePanel;
 
             UpdateWeeklyAgendaList();
+            //TODO perkraut UI po pakeitimu
         }
 
         private void InitializeLanguage()
@@ -118,7 +120,7 @@ namespace AgendaApp
             var check = (CheckBox)sender;
 
             if (check.IsChecked==true)
-                lstBoxSidePanel.ItemsSource = AgendaItemList.Where(x=>x.FinishDate > DateTime.Now).OrderBy(x => x.FinishDate);
+                lstBoxSidePanel.ItemsSource = AgendaItemList.Where(x=>x.FinishDate >= DateTime.Now).OrderBy(x => x.FinishDate);
             else
                 lstBoxSidePanel.ItemsSource = AgendaItemList;
             
@@ -159,12 +161,21 @@ namespace AgendaApp
         }
         private void UpdateWeeklyAgendaList()
         {
+            //TODO sutvarkyt filtravima
             lblWeekNumber.Content = WeekObject.GetCurrentWeekNumber();
-            lstBoxMonday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Day) && (x.FinishDate.Month==WeekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Month));
-            lstBoxTuesday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Month));
-            lstBoxWednsday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Wendsday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Wendsday].Month));
-            lstBoxThursday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Month));
-            lstBoxFriday.ItemsSource = AgendaItemList.Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Month));
+            lstBoxMonday.ItemsSource = AgendaItemList.Where(x => !x.IsCompleted).Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Day) && (x.FinishDate.Month==WeekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Month));
+            lstBoxTuesday.ItemsSource = AgendaItemList.Where(x => !x.IsCompleted).Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Month));
+            lstBoxWednsday.ItemsSource = AgendaItemList.Where(x => !x.IsCompleted).Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Wendsday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Wendsday].Month));
+            lstBoxThursday.ItemsSource = AgendaItemList.Where(x => !x.IsCompleted).Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Month));
+            lstBoxFriday.ItemsSource = AgendaItemList.Where(x=>!x.IsCompleted).Where(x => (x.FinishDate.Day == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Day) && (x.FinishDate.Month == WeekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Month));
+        }
+
+        private void txtListGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var context = (Grid)sender;
+            var agendaItem = context.DataContext;
+            AgendaItemWindow agendaWindow = new AgendaItemWindow((AgendaItem)agendaItem, SelectedLanguage);
+            agendaWindow.Show();
         }
     }
 } 

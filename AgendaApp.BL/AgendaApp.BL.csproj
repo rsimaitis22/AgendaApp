@@ -59,7 +59,6 @@
     <Compile Include="Models\TimeObject.cs" />
     <Compile Include="Models\TranslationsAgendaObject.cs" />
     <Compile Include="Models\TranslationsMainWindowObject.cs" />
-    <Compile Include="Models\TranslationsWeeklyReportWindowObject.cs" />
     <Compile Include="Models\WeekObj.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AgendaManager.cs" />

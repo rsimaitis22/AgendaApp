@@ -92,9 +92,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AgendaItemWindow.xaml.cs">
+      <DependentUpon>AgendaItemWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewAgendaItem.xaml.cs">
       <DependentUpon>NewAgendaItem.xaml</DependentUpon>
     </Compile>
+    <Page Include="AgendaItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

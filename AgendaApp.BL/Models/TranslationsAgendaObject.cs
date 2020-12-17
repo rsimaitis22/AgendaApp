@@ -21,5 +21,6 @@ namespace AgendaApp.BL.Models
         public List<PriorityItem> PriorityList { get; set; }
         public string StartDay { get; set; }
         public string FinishDay { get; set; }
+        public string MarkCompleted { get; set; }
     }
 }

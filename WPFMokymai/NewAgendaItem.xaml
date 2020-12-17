@@ -40,7 +40,7 @@
             >
             <Label 
                 Margin="10 0"
-                Name="lblTitle" 
+                x:Name="lblTitle" 
                 FontSize="20"
                    />
             <TextBox  
@@ -49,14 +49,14 @@
                 BorderThickness="2"
                 MaxLength="30"
                 FontSize="16"
-                Name="txtBoxTitle" 
+                x:Name="txtBoxTitle" 
                 Height="35" 
                 TextChanged="titleTextBox_TextChanged" 
                 Margin="10 0"
                 />
             <Label 
                 Margin="10 0"
-                Name="lblDescription" 
+                x:Name="lblDescription" 
                 FontSize="20"
                 />
             <TextBox  
@@ -66,7 +66,7 @@
                 TextWrapping="Wrap"
                 MaxLength="105"
                 FontSize="16"
-                Name="txtBoxDescription" 
+                x:Name="txtBoxDescription" 
                 TextChanged="descriptionTextBox_TextChanged" 
                 Height="100"
                 Margin="10 0"
@@ -75,7 +75,7 @@
 
 
         <Label 
-            Name="lblPriority"
+            x:Name="lblPriority"
             FontSize="16" 
             Grid.Row="5" 
             Grid.Column="2" 
@@ -85,7 +85,7 @@
             Content="Priority"
             />
         <ComboBox 
-            Name="cmbBoxPriority"
+            x:Name="cmbBoxPriority"
             Grid.Column="4"
             Grid.ColumnSpan="2"
             Grid.Row="5"
@@ -94,7 +94,7 @@
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock 
-                        Name="txtBlockPriority" 
+                        x:Name="txtBlockPriority" 
                         Text="{Binding Priority}"
                         />
                 </DataTemplate>
@@ -102,7 +102,7 @@
         </ComboBox>
 
         <Label
-            Name="lblStartDayTitle"
+            x:Name="lblStartDayTitle"
             Grid.Row="6"
             Grid.Column="1"
             Grid.ColumnSpan="2"
@@ -112,7 +112,7 @@
         </Label>
 
         <Label 
-            Name="lblStartingDay" 
+            x:Name="lblStartingDay" 
             Grid.Row="7" 
             Grid.Column="0"
             Margin="5"
@@ -133,7 +133,7 @@
         </StackPanel>
 
         <Label 
-            Name="lblStartingDayHours"
+            x:Name="lblStartingDayHours"
             Margin="5"
             Grid.Row="7" 
             Grid.Column="3"
@@ -148,7 +148,7 @@
             <StackPanel>
                 <ListBox 
                     Background="IndianRed" 
-                    Name="lstBoxStartingDayHours" 
+                    x:Name="lstBoxStartingDayHours" 
                     HorizontalAlignment="Center" 
                     Height="30" 
                     SelectionChanged="listBoxHours_SelectionChanged" 
@@ -156,7 +156,7 @@
             </StackPanel>
         </ScrollViewer>
 
-        <Label Name="lblStartingDayMinutes" 
+        <Label x:Name="lblStartingDayMinutes" 
                Grid.Row="7" 
                Grid.Column="5"
                Margin="0 5"
@@ -170,7 +170,7 @@
             <StackPanel>
                 <ListBox 
                     Background="IndianRed" 
-                    Name="lstBoxStartingDayMinutes" 
+                    x:Name="lstBoxStartingDayMinutes" 
                     HorizontalAlignment="Center"
                     Height="30" SelectionChanged="listBoxMinutes_SelectionChanged"
                     />
@@ -178,7 +178,7 @@
         </ScrollViewer>
 
         <Label
-            Name="lblFinishDayTitle"
+            x:Name="lblFinishDayTitle"
             Grid.Row="8"
             Grid.Column="1"
             Grid.ColumnSpan="2"
@@ -188,7 +188,7 @@
         </Label>
         
         <Label 
-            Name="lblFinishDay" 
+            x:Name="lblFinishDay" 
             Grid.Row="9" 
             Grid.Column="0"
             Margin="5"
@@ -209,7 +209,7 @@
             </StackPanel>
 
             <Label 
-            Name="lblFinishDayHours"
+            x:Name="lblFinishDayHours"
             Margin="5"
             Grid.Row="9" 
             Grid.Column="3"
@@ -224,7 +224,7 @@
                 <StackPanel>
                     <ListBox 
                     Background="IndianRed" 
-                    Name="lstBoxFinishDayHours" 
+                    x:Name="lstBoxFinishDayHours" 
                     HorizontalAlignment="Center" 
                     Height="30" 
                     SelectionChanged="listBoxHours_SelectionChanged" 
@@ -232,11 +232,12 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <Label Name="lblFinishDayMinutes" 
-               Grid.Row="9" 
-               Grid.Column="5"
-               Margin="0 5"
-               />
+        <Label 
+            x:Name="lblFinishDayMinutes" 
+            Grid.Row="9" 
+            Grid.Column="5"
+            Margin="0 5"
+            />
         <ScrollViewer 
             VerticalScrollBarVisibility="Auto"
             Margin="0 2.5"
@@ -246,7 +247,7 @@
             <StackPanel>
                 <ListBox 
                     Background="IndianRed" 
-                    Name="lstBoxFinishDayMinutes" 
+                    x:Name="lstBoxFinishDayMinutes" 
                     HorizontalAlignment="Center"
                     Height="30" SelectionChanged="listBoxMinutes_SelectionChanged"
                     />
@@ -256,7 +257,7 @@
         
         <Button 
             Margin="10 0"
-            Name="btnSave" 
+            x:Name="btnSave" 
             IsEnabled="False" 
             Background="GreenYellow" 
             Click="btn_saveAndExit" 
@@ -267,8 +268,8 @@
         <Button 
             BorderThickness="0"
             Margin="10 0"
-            Name="btnExit" 
-            Background="Red" 
+            x:Name="btnExit" 
+            Background="IndianRed" 
             Click="btn_exitWithoutSaving" 
             Grid.Column="4" 
             Grid.ColumnSpan="4" 

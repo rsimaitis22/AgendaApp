@@ -12,6 +12,7 @@
     "Priority": "Priority",
     "FinishDay": "Ends at",
     "StartDay": "Starts at",
+    "MarkCompleted": "Mark completed",
     "PriorityList": [
         {
             "Id": 1,
@@ -42,14 +43,5 @@
     "Language": "Language",
     "Previous": "Previous",
     "Next": "Next"
-  },
-  "WeeklyReportWindow": {
-    "Title": "Weekly report",
-    "Week": "Week",
-    "Monday": "Monday",
-    "Tuesday": "Tuesday",
-    "Wednsday": "Wednsday",
-    "Thursday": "Thursday",
-    "Friday": "Friday"
   }
 }

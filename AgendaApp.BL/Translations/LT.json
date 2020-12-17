@@ -12,6 +12,7 @@
         "Priority": "Prioritetas",
         "FinishDay": "Baigiasi",
         "StartDay": "Prasideda",
+        "MarkCompleted": "Užbaigti įvykį",
         "PriorityList": [
             {
                 "Id": 1,
@@ -41,14 +42,5 @@
         "Language": "Kalba",
         "Previous": "Praeita",
         "Next": "Sekanti"
-    },
-  "WeeklyReportWindow": {
-    "Title": "Savaitinė ataskaita",
-    "Week": "Savaitė",
-    "Monday": "Pirmadienis",
-    "Tuesday": "Antradienis",
-    "Wednsday": "Trečiadienis",
-    "Thursday": "Ketvirtadienis",
-    "Friday": "Penktadienis"
-  }
+    }
 }

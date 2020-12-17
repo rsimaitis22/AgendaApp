@@ -58,7 +58,6 @@ namespace AgendaApp.BL.Services
 
             translationObject.Add(WindowNamesEnum.AgendaWindow.ToString(), JsonConvert.DeserializeObject<TranslationsAgendaObject>(data[WindowNamesEnum.AgendaWindow.ToString()].ToString()));
             translationObject.Add(WindowNamesEnum.MainWindow.ToString(), JsonConvert.DeserializeObject<TranslationsMainWindowObject>(data[WindowNamesEnum.MainWindow.ToString()].ToString()));
-            translationObject.Add(WindowNamesEnum.WeeklyReportWindow.ToString(), JsonConvert.DeserializeObject<TranslationsWeeklyReportWindowObject>(data[WindowNamesEnum.WeeklyReportWindow.ToString()].ToString()));
         }
         public object GetTranslationsObject(string windowName)
         {
