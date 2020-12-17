@@ -73,14 +73,14 @@
     <Folder Include="Translations\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\WPFMokymai.DL\AgendaApp.DL.csproj">
       <Project>{c163ea02-fc35-4207-8a65-3ca8ae8b0c83}</Project>
       <Name>AgendaApp.DL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
