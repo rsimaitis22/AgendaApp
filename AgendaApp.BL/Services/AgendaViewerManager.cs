@@ -1,16 +1,13 @@
-﻿using AgendaApp.DL.Models;
-using System;
+﻿using AgendaApp.BL.Interfaces;
+using AgendaApp.DL.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AgendaApp.BL.Services
 {
-    public class AgendaViewerManager
+    public class AgendaViewerManager : IAgendaViewerManager
     {
-        AgendaManager agendaManager;
-        Dictionary<int, List<AgendaItem>> agendaDictionary;
+        IAgendaManager agendaManager { get; }
+        Dictionary<int, List<AgendaItem>> agendaDictionary { get; }
 
         public AgendaViewerManager()
         {

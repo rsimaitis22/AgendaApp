@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AgendaApp.BL.Interfaces;
 using AgendaApp.DL;
 using AgendaApp.DL.Models;
 
 namespace AgendaApp.BL.Services
 {
-    public class AgendaManager
+    public class AgendaManager : IAgendaManager
     {
         public AgendaManager()
         {

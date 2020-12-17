@@ -1,19 +1,17 @@
-﻿using AgendaApp.BL.Models;
-using AgendaApp.DL.Models;
+﻿using AgendaApp.BL.Interfaces;
+using AgendaApp.BL.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AgendaApp.BL.Services
 {
-    public class UiMessagesService
+    public class UiMessagesService : IUiMessagesService
     {
-        Dictionary<string, Object> translationObject; 
+        Dictionary<string, Object> translationObject { get; }
 
         public string TranslationLanguage { get; }
 
