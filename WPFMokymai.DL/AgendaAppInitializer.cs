@@ -16,7 +16,7 @@ namespace AgendaApp.DL
             Random r = new Random();
             List<AgendaItem> agendaItems = new List<AgendaItem>();
 
-            for (int i = 0; i < 3000; i++)
+            for (int i = 0; i < 200; i++)
             {
                 int month = r.Next(1, 13);
                 int day = r.Next(1, 15);

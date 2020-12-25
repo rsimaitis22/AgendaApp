@@ -18,7 +18,8 @@
         <DataTemplate x:Key="myTaskTemplate">
             <Grid Name="txtListGrid" 
                   PreviewMouseDown="txtListGrid_PreviewMouseDown"
-                  Background="LightGray"    >
+                  Background="Azure"  
+                  >
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -32,6 +33,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
+                    FontSize="12"
                     Grid.Row="0" 
                     Grid.Column="0"
                     Text="{Binding Path=Title}" 
@@ -41,36 +43,42 @@
                     Grid.Row="0" 
                     Grid.Column="2" 
                     Grid.ColumnSpan="1" 
+                    FontSize="12"
                     Text="{Binding Path=Priority}" 
                     HorizontalAlignment="Right"/>
                 <TextBlock 
+                    FontSize="10"
                     Grid.Row="1" 
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Margin="5"
+                    Margin="5 0"
+                    TextWrapping="Wrap"
                     Text="{Binding Path=Description}"
-                    TextWrapping="Wrap" 
-                    HorizontalAlignment="Left"/>
+                    
+                    />
                 <TextBlock 
+                    FontSize="10"
                     Grid.Row="2" 
                     Grid.Column="0" 
                     Grid.ColumnSpan="2" 
+                    Margin="5"
                     Text="{Binding Path=StartDate}" 
-                    HorizontalAlignment="Center"
                     />
                 <TextBlock 
+                    FontSize="10"
                     Grid.Row="3" 
                     Grid.Column="0" 
                     Grid.ColumnSpan="2" 
+                    Margin="5"
                     Text="{Binding Path=FinishDate}" 
-                    HorizontalAlignment="Center"/>
+                    />
 
             </Grid>
         </DataTemplate>
     </Window.Resources>
 
 
-    <Grid x:Name="mainWindow" Background="WhiteSmoke">
+    <Grid x:Name="mainWindow" Background="LightBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -140,7 +148,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
             FontSize="20"
             Grid.Column="0" 
-            Grid.ColumnSpan="2" 
+            Grid.ColumnSpan="1" 
             x:Name="sidePanelScrollViewer" 
             CanContentScroll="True" 
             PreviewMouseWheel="sidePanelScrollViewer_PreviewMouseWheel" 

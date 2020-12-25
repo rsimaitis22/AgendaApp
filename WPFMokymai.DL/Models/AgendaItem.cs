@@ -1,11 +1,13 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AgendaApp.DL.Models
 {
     [Table("AgendaItems")]
-    public class AgendaItem
+    public class AgendaItem 
     {
         [Key]
         public int Id { get; set; }

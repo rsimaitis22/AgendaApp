@@ -21,6 +21,10 @@ namespace AgendaApp.BL.Services
             translationObject = new Dictionary<string, Object>();
             InitializeTranslationObjects();
         }
+        public void SelectLanguage(string translationLanguage) 
+        { 
+
+        }
 
         public string ReadDataFromFile()
         {
@@ -29,6 +33,7 @@ namespace AgendaApp.BL.Services
                 //TODO dynamic translations path
 
                 string p = Directory.GetCurrentDirectory();
+
                 string defaultPath = @"C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Translations\";
                 string path = $"{defaultPath}{TranslationLanguage}.json";
                 StringBuilder sb = new StringBuilder();
@@ -53,9 +58,17 @@ namespace AgendaApp.BL.Services
         public void InitializeTranslationObjects()
         {
             JObject data = JObject.Parse(ReadDataFromFile());
-
-            translationObject.Add(WindowNamesEnum.AgendaWindow.ToString(), JsonConvert.DeserializeObject<TranslationsAgendaObject>(data[WindowNamesEnum.AgendaWindow.ToString()].ToString()));
-            translationObject.Add(WindowNamesEnum.MainWindow.ToString(), JsonConvert.DeserializeObject<TranslationsMainWindowObject>(data[WindowNamesEnum.MainWindow.ToString()].ToString()));
+            
+            try
+            {
+                translationObject.Add(WindowNamesEnum.AgendaWindow.ToString(), JsonConvert.DeserializeObject<TranslationsAgendaObject>(data[WindowNamesEnum.AgendaWindow.ToString()].ToString()));
+                translationObject.Add(WindowNamesEnum.MainWindow.ToString(), JsonConvert.DeserializeObject<TranslationsMainWindowObject>(data[WindowNamesEnum.MainWindow.ToString()].ToString()));
+            }
+            catch (Exception)
+            {
+                //log data
+                throw;
+            }
         }
         public object GetTranslationsObject(string windowName)
         {

@@ -10,46 +10,51 @@ namespace AgendaApp.BL.Services
     {
         IAgendaManager agendaManager { get; }
         Dictionary<int, List<AgendaItem>> agendaDictionary { get; }
+        List<AgendaItem> items;
 
         public AgendaViewerManager()
         {
-            agendaManager = new AgendaManager();
+            items = new List<AgendaItem>();
+            agendaManager = new AgendaManagerEntity();
             agendaDictionary = new Dictionary<int, List<AgendaItem>>();
+        }
+        public virtual AgendaItem GetNewlyAddedAgenda(int month)
+        {
+            return agendaManager.GetNewlyCreatedAgenda();
         }
         public virtual List<AgendaItem> GetFutureNearestMonthAgendaItems(int month)
         {
-            List<AgendaItem> items = TryGetMonthAgendas(month);
+            items = TryGetMonthAgendas(month);
 
             return items.Where(x=>!x.IsCompleted).Where(x => x.FinishDate >= DateTime.Now).OrderBy(x => x.FinishDate).ToList();
         }
         public virtual List<AgendaItem> GetMonthAgendaItemsByPriority(int month)
         {
-            List<AgendaItem> items = TryGetMonthAgendas(month);
+            items = TryGetMonthAgendas(month);
 
             return items.Where(x=>!x.IsCompleted).OrderByDescending(x => x.Priority).ToList();
         }
 
         public virtual List<AgendaItem> GetMonthlyAgendaItems(int month)
         {
-            List<AgendaItem> items = TryGetMonthAgendas(month);
+            items = TryGetMonthAgendas(month);
 
             return items.Where(x => !x.IsCompleted).ToList() ;
         }
         public virtual List<AgendaItem> GetCurrentWeekDayAgendaItems(int month,int day)
         {
-            List<AgendaItem> items = TryGetMonthAgendas(month);
+            items = TryGetMonthAgendas(month);
 
             return items.Where(x => !x.IsCompleted).Where(X => X.FinishDate.Day == day).ToList();
         }
         public virtual List<AgendaItem> GetNotCompletedAgendaItems(int month)
         {
-            List<AgendaItem> items = TryGetMonthAgendas(month);
+            items = TryGetMonthAgendas(month);
 
             return items.Where(x => !x.IsCompleted).ToList();
         }
         private List<AgendaItem> TryGetMonthAgendas(int month)
         {
-            List<AgendaItem> items = new List<AgendaItem>();
             CheckIfAgendaIsInDictionary(month);
 
             agendaDictionary.TryGetValue(month, out items);
@@ -60,6 +65,12 @@ namespace AgendaApp.BL.Services
         {
             if (!agendaDictionary.ContainsKey(month))
                 agendaDictionary.Add(month, agendaManager.GetSelectedMonthAgendas(month));
+        }
+        public virtual void AddNewlyCreatedAgenda(int month)
+        {
+            CheckIfAgendaIsInDictionary(month);
+
+            agendaDictionary.FirstOrDefault(x => x.Key == month).Value.Add(agendaManager.GetNewlyCreatedAgenda());
         }
     }
 }

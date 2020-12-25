@@ -9,6 +9,7 @@ namespace AgendaApp.BL.Interfaces
         AgendaItem GetAgenda(int id);
         List<AgendaItem> GetAllAgendas();
         List<AgendaItem> GetCurrentMonthAgendas();
+        AgendaItem GetNewlyCreatedAgenda();
         List<AgendaItem> GetSelectedMonthAgendas(int selectedMonth);
         AgendaItem ModifyAgendaItem(AgendaItem agendaItem);
     }

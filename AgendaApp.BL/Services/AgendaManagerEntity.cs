@@ -7,9 +7,9 @@ using AgendaApp.DL.Models;
 
 namespace AgendaApp.BL.Services
 {
-    public class AgendaManager : IAgendaManager
+    public class AgendaManagerEntity : IAgendaManager
     {
-        public AgendaManager()
+        public AgendaManagerEntity()
         {
         }
         public virtual List<AgendaItem> GetCurrentMonthAgendas()
@@ -67,6 +67,13 @@ namespace AgendaApp.BL.Services
                 context.AgendaItems.Add(item);
 
                 context.SaveChanges();
+            }
+        }
+        public virtual AgendaItem GetNewlyCreatedAgenda()
+        {
+            using (var context = new AgendaDbContext())
+            {
+                return context.AgendaItems.OrderByDescending(x => x.Id).FirstOrDefault();
             }
         }
     }
