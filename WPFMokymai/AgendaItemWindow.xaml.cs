@@ -22,7 +22,7 @@ namespace WPFMokymai
 
         public AgendaItemWindow(AgendaItem agenda,string translationLanguage)
         {
-            agendaManager = new AgendaManagerEntity();
+            agendaManager = new AgendaManagerCSV();
             uiMessagesService = new UiMessagesService(translationLanguage);
             agendaItem = new AgendaItem();
 

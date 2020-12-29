@@ -32,7 +32,7 @@ namespace AgendaApp
             timeObj = new TimeObject();
             agendaItem = new AgendaItem();
             uiMessagesService = new UiMessagesService(language);
-            agendaManager = new AgendaManagerEntity();
+            agendaManager = new AgendaManagerCSV();
   
             TranslateWindowText();
 

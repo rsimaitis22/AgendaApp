@@ -15,7 +15,7 @@ namespace AgendaApp.BL.Services
         public AgendaViewerManager()
         {
             items = new List<AgendaItem>();
-            agendaManager = new AgendaManagerEntity();
+            agendaManager = new AgendaManagerCSV();
             agendaDictionary = new Dictionary<int, List<AgendaItem>>();
         }
         public virtual AgendaItem GetNewlyAddedAgenda(int month)
