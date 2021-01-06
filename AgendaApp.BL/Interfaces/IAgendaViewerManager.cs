@@ -5,6 +5,7 @@ namespace AgendaApp.BL.Interfaces
 {
     public interface IAgendaViewerManager
     {
+        void AddMultipleNewlyCreatedAgendas(int month, List<AgendaItem> agendas);
         void AddNewlyCreatedAgenda(int month);
         List<AgendaItem> GetCurrentWeekDayAgendaItems(int month, int day);
         List<AgendaItem> GetFutureNearestMonthAgendaItems(int month);

@@ -65,10 +65,20 @@ namespace AgendaApp
 
         private void NewAgendaItem_DataChanged(object sender, EventArgs e)
         {
-            var item = (NewAgendaItem)sender;
+            var item = (List<AgendaItem>)sender;
+            var eventArgs = e;
 
-            agendaViewerManager.AddNewlyCreatedAgenda(item.cldFinishDay.DisplayDate.Month);
-
+            if(item.Count > 1)
+            {
+                agendaViewerManager.AddMultipleNewlyCreatedAgendas(DateTime.Now.Month, item);
+                //agendaViewerManager.AddNewlyCreatedAgenda(date.Month);
+          
+            }
+            else
+            {
+                agendaViewerManager.AddNewlyCreatedAgenda(item.FirstOrDefault().FinishDate.Month);
+            }
+            
             UpdateWeeklyAgendaList();
         }
 

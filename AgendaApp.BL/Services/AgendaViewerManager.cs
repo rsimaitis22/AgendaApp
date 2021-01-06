@@ -72,5 +72,11 @@ namespace AgendaApp.BL.Services
 
             agendaDictionary.FirstOrDefault(x => x.Key == month).Value.Add(agendaManager.GetNewlyCreatedAgenda());
         }
+        public virtual void AddMultipleNewlyCreatedAgendas(int month, List<AgendaItem> agendas)
+        {
+            CheckIfAgendaIsInDictionary(month);
+
+            agendaDictionary.FirstOrDefault(x => x.Key == month).Value.AddRange(agendas);
+        }
     }
 }

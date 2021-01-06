@@ -1,34 +1,39 @@
 {
-    "AgendaWindow": {
-        "WindowTitle": "Naujas įrašas",
-        "Title": "Pavadinimas",
-        "Description": "Aprašymas",
-        "Hours": "Valandos",
-        "Minutes": "Minutes",
-        "Days": "Diena",
-        "DaySelector": "Pasirinkite datą",
-        "ItemSaveButtonText": "Išsaugoti įrašą",
-        "ItemExitButtonText": "Grįžti atgal neišsaugojus",
-        "Priority": "Prioritetas",
-        "FinishDay": "Baigiasi",
-        "StartDay": "Prasideda",
-        "MarkCompleted": "Užbaigti įvykį",
-        "EstimatedFinish": "Numatyta pabaiga",
-        "PriorityList": [
-            {
-                "Id": 1,
-                "Priority": "Žemas"
-            },
-            {
-                "Id": 2,
-                "Priority": "Vidutinis"
-            },
-            {
-                "Id": 3,
-                "Priority": "Aukštas"
-            }
-        ]
-    },
+  "AgendaWindow": {
+    "WindowTitle": "Naujas įrašas",
+    "Title": "Pavadinimas",
+    "Description": "Aprašymas",
+    "Hours": "Valandos",
+    "Minutes": "Minutes",
+    "Days": "Diena",
+    "DaySelector": "Pasirinkite datą",
+    "ItemSaveButtonText": "Išsaugoti įrašą",
+    "ItemExitButtonText": "Grįžti atgal neišsaugojus",
+    "Priority": "Prioritetas",
+    "FinishDay": "Baigiasi",
+    "StartDay": "Prasideda",
+    "MarkCompleted": "Užbaigti įvykį",
+    "Monday": "Pirmadienis",
+    "Tuesday": "Antradienis",
+    "Wednsday": "Trečiadienis",
+    "Thursday": "Ketvirtadienis",
+    "Friday": "Penktadienis",
+    "EstimatedFinish": "Numatyta pabaiga",
+    "PriorityList": [
+      {
+        "Id": 1,
+        "Priority": "Žemas"
+      },
+      {
+        "Id": 2,
+        "Priority": "Vidutinis"
+      },
+      {
+        "Id": 3,
+        "Priority": "Aukštas"
+      }
+    ]
+  },
     "MainWindow": {
         "Title": "Dienotvarkes planuotojas - susikurk savo dieną",
         "NewAgendaButtonText": "Kurti naują įrašą",

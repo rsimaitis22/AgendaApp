@@ -29,6 +29,15 @@ namespace AgendaApp.BL.Services
             }
         }
 
+        public void CreateMultipleRepeatableAgendas(AgendaItem item)
+        {
+            using (StreamWriter sw = File.AppendText(path))
+            {
+                string tempString = $"{item.Id}|{item.Title}|{item.Description}|{item.StartDate}|{item.FinishDate}|{item.IsCompleted}|{item.IsRepeatable}|{item.RepeatableInterval}|{item.Priority}";
+                sw.WriteLine(tempString);
+            }
+        }
+
         public AgendaItem GetAgenda(int id)
         {
             List<AgendaItem> agendaItems = GetAllAgendas();

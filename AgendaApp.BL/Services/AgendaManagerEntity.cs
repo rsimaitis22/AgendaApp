@@ -76,5 +76,10 @@ namespace AgendaApp.BL.Services
                 return context.AgendaItems.OrderByDescending(x => x.Id).FirstOrDefault();
             }
         }
+
+        public void CreateMultipleRepeatableAgendas(AgendaItem item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

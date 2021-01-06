@@ -19,5 +19,10 @@ namespace AgendaApp.BL.Models
         public string FinishDay { get; set; }
         public string MarkCompleted { get; set; }
         public string EstimatedFinish { get; set; }
+        public string Monday { get; set; }
+        public string Tuesday { get; set; }
+        public string Wednsday { get; set; }
+        public string Thursday { get; set; }
+        public string Friday { get; set; }
     }
 }

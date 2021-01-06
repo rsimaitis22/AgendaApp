@@ -79,5 +79,10 @@ namespace AgendaApp.BL.Services
         {
             throw new NotImplementedException();
         }
+
+        public void CreateMultipleRepeatableAgendas(AgendaItem item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

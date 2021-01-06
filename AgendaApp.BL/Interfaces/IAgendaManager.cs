@@ -6,6 +6,7 @@ namespace AgendaApp.BL.Interfaces
     public interface IAgendaManager
     {
         void CreateAgenda(AgendaItem item);
+        void CreateMultipleRepeatableAgendas(AgendaItem item);
         AgendaItem GetAgenda(int id);
         List<AgendaItem> GetAllAgendas();
         List<AgendaItem> GetCurrentMonthAgendas();
