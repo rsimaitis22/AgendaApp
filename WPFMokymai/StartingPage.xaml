@@ -1,0 +1,187 @@
+﻿<Window x:Class="WPFMokymai.StartingPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFMokymai"
+        mc:Ignorable="d"
+        Title="Settings" Height="400" Width="500">
+    <Grid
+        
+        Background="#D7DFE0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid
+            Margin="0 15 15 15"
+            Grid.Column="3"
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="3"
+            Background="White"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.ColumnSpan="4"
+                Grid.RowSpan="3"
+                FontSize="20"
+                Padding="10"
+                Text="Testas"
+                Name="txtBlockConnType"
+                Background="White"
+            ></TextBlock>
+            <TextBlock
+                Grid.Row="3"
+                Grid.ColumnSpan="4"
+                Grid.RowSpan="3"
+                FontSize="20"
+                Padding="10"
+                Text="Testas"
+                Name="txtBlockConnInfo"
+                Background="White"
+            ></TextBlock>
+        </Grid>
+
+        <ComboBox
+            Name="comBoxImageSelector"
+            Margin="15 15 0 15"
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="3"
+            Height="125"
+            Background="White"
+            >
+            <ComboBoxItem IsSelected="True">
+                <WrapPanel>
+                    <TextBlock Text="Database" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button Height="100" Width="100">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Height="70" Source="C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Icons\database.png"></Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </TextBlock>
+                </WrapPanel>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <WrapPanel>
+                    <TextBlock Text="Text File" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button Width="100" Height="100">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Height="70" HorizontalAlignment="Center" Source="C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Icons\csv-file-format.png"></Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </TextBlock>
+                </WrapPanel>
+            </ComboBoxItem>
+        </ComboBox>
+
+        <StackPanel
+            Background="White"
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="6"
+            Grid.RowSpan="3"
+            Margin="15 0 15 0"
+            ></StackPanel>
+        
+        <Grid
+            Margin="0 0 15 0"
+            Grid.Column="3"
+            Grid.Row="3"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="3"
+            Background="White"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.ColumnSpan="4"
+                Grid.RowSpan="3"
+                FontSize="20"
+                Padding="10"
+                Text="Testas"
+                Name="txtBlocLang"
+                Background="White"
+            ></TextBlock>
+            <TextBlock
+                Grid.Row="3"
+                Grid.ColumnSpan="4"
+                Grid.RowSpan="3"
+                FontSize="20"
+                Padding="10"
+                Text="Testas"
+                Name="txtBlockLangInfo"
+                Background="White"
+            ></TextBlock>
+        </Grid>
+
+        <ComboBox
+            Name="comBoxLangSelector"
+            Margin="25"
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="3"
+            Grid.Row="3"
+            Height="40"
+            Background="White" SelectionChanged="comBoxLangSelector_SelectionChanged"
+            >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Button
+            Name="btnStart"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Grid.Row="7"
+            Content="Save configuration"
+            ></Button>
+    </Grid>
+</Window>

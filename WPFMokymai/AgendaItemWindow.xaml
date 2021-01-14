@@ -81,6 +81,7 @@
             Grid.ColumnSpan="9"
             HorizontalAlignment="Center"
             Content="test"
+            FontSize="20"
             >
             
         </Label>

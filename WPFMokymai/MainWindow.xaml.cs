@@ -9,6 +9,8 @@ using AgendaApp.BL.Services;
 using AgendaApp.BL.Models;
 using WPFMokymai;
 using AgendaApp.BL.Interfaces;
+using System.Windows.Media;
+using Microsoft.Win32;
 
 namespace AgendaApp
 {
@@ -38,6 +40,7 @@ namespace AgendaApp
             InitializeComponent();
 
             InitializeLanguage();
+
             TranslateWindowText();
 
             cmbBoxLanguages.SelectedIndex = defaultIndex; 
@@ -71,8 +74,6 @@ namespace AgendaApp
             if(item.Count > 1)
             {
                 agendaViewerManager.AddMultipleNewlyCreatedAgendas(DateTime.Now.Month, item);
-                //agendaViewerManager.AddNewlyCreatedAgenda(date.Month);
-          
             }
             else
             {
@@ -156,6 +157,7 @@ namespace AgendaApp
         {
             //TODO sutvarkyt filtravima
             lblWeekNumber.Content = weekObject.GetCurrentWeekNumber();
+
 
             lstBoxMonday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
                 weekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Month,

@@ -25,5 +25,13 @@ namespace AgendaApp.DL.Models
         public int RepeatableInterval { get; set; }
         [Required]
         public int Priority { get; set; }
+
+        public AgendaItemPriority AgendaItemPriority { get; set; }
+    }
+    public enum AgendaItemPriority
+    {
+        Low,
+        Medium,
+        High
     }
 }

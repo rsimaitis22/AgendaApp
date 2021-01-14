@@ -32,10 +32,9 @@ namespace AgendaApp.BL.Services
             {
                 //TODO dynamic translations path
 
-                string p = Directory.GetCurrentDirectory();
+                string defaultPath = Directory.GetCurrentDirectory();
+                string path = $"{defaultPath}/Translations/{TranslationLanguage}.json";
 
-                string defaultPath = @"C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Translations\";
-                string path = $"{defaultPath}{TranslationLanguage}.json";
                 StringBuilder sb = new StringBuilder();
 
                 using (var reader = new StreamReader(path))
@@ -50,9 +49,7 @@ namespace AgendaApp.BL.Services
             }
             catch (FileNotFoundException e)
             {
-                Console.WriteLine("Translation file not found");
-                Console.WriteLine(e.Message);
-                throw;
+                return e.Message;
             }
         }
         public void InitializeTranslationObjects()
