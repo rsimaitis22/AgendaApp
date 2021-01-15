@@ -2,6 +2,7 @@
 using AgendaApp.DL.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace AgendaApp.BL.Services
@@ -11,6 +12,8 @@ namespace AgendaApp.BL.Services
         IAgendaManager agendaManager { get; }
         Dictionary<int, List<AgendaItem>> agendaDictionary { get; }
         List<AgendaItem> items;
+
+        ObservableCollection<AgendaItem> observableItems;
 
         public AgendaViewerManager()
         {

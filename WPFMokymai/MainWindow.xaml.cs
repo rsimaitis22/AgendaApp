@@ -46,7 +46,7 @@ namespace AgendaApp
             cmbBoxLanguages.SelectedIndex = defaultIndex; 
             cmbBoxLanguages.ItemsSource = languagesList;
 
-            lstBoxSidePanel.ItemsSource = agendaViewerManager.GetNotCompletedAgendaItems(DateTime.UtcNow.Month);
+            lstBoxSidePanel.ItemsSource =  agendaViewerManager.GetNotCompletedAgendaItems(DateTime.UtcNow.Month);
             sidePanelScrollViewer.Content = lstBoxSidePanel;
 
             UpdateWeeklyAgendaList();

@@ -6,6 +6,22 @@
         xmlns:local="clr-namespace:WPFMokymai"
         mc:Ignorable="d"
         Title="Settings" Height="400" Width="500">
+    <Window.Resources>
+        <DataTemplate x:Key="cmbBoxWithImages">
+            <WrapPanel>
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Button Height="100" Width="100">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Image Height="75" Source="{Binding IconPath}" ></Image>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                </TextBlock>
+            </WrapPanel>
+        </DataTemplate>
+    </Window.Resources>
+    
     <Grid
         
         Background="#D7DFE0">
@@ -72,39 +88,17 @@
         </Grid>
 
         <ComboBox
-            Name="comBoxImageSelector"
+            x:Name="comBoxConnectionSelector"
             Margin="15 15 0 15"
+            Padding="25 10 0 0"
             Grid.RowSpan="3"
             Grid.ColumnSpan="3"
             Height="125"
-            Background="White"
+            Width="auto"
+            Background="White" 
+            SelectionChanged="comBoxConnectionSelector_SelectionChanged"
+            ItemTemplate="{StaticResource cmbBoxWithImages}"
             >
-            <ComboBoxItem IsSelected="True">
-                <WrapPanel>
-                    <TextBlock Text="Database" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button Height="100" Width="100">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Image Height="70" Source="C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Icons\database.png"></Image>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </TextBlock>
-                </WrapPanel>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <WrapPanel>
-                    <TextBlock Text="Text File" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button Width="100" Height="100">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Image Height="70" HorizontalAlignment="Center" Source="C:\Users\simai\source\repos\Agenda\AgendaApp.BL\Icons\csv-file-format.png"></Image>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </TextBlock>
-                </WrapPanel>
-            </ComboBoxItem>
         </ComboBox>
 
         <StackPanel
@@ -182,6 +176,7 @@
             Grid.ColumnSpan="2"
             Grid.Row="7"
             Content="Save configuration"
+            Click="btnStart_Click"
             ></Button>
     </Grid>
 </Window>

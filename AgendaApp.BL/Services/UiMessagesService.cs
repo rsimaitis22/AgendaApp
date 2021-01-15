@@ -30,8 +30,6 @@ namespace AgendaApp.BL.Services
         {
             try
             {
-                //TODO dynamic translations path
-
                 string defaultPath = Directory.GetCurrentDirectory();
                 string path = $"{defaultPath}/Translations/{TranslationLanguage}.json";
 

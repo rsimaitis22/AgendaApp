@@ -115,6 +115,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ConfigModel.cs" />
+    <Compile Include="Models\ConnectionItem.cs" />
     <Compile Include="Models\LanguageItem.cs" />
     <Compile Include="Models\PriorityItem.cs" />
     <Compile Include="Models\TimeObject.cs" />
