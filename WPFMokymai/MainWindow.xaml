@@ -16,7 +16,6 @@
 
     <Window.Resources>
         <DataTemplate x:Key="myTaskTemplate">
-
             <Grid Name="txtListGrid" 
                   PreviewMouseDown="txtListGrid_PreviewMouseDown"
                   Background="Azure"
@@ -39,7 +38,7 @@
                     Grid.Column="0"
                     Text="{Binding Path=Title}" 
                     HorizontalAlignment="Stretch"
-                    Margin="5"
+                    Padding="5"
                     />
                 <TextBlock 
                     Grid.Row="0" 
@@ -47,14 +46,15 @@
                     Grid.ColumnSpan="1" 
                     FontSize="12"
                     Text="{Binding Path=Priority}" 
-                    HorizontalAlignment="Right"/>
+                    HorizontalAlignment="Right"
+                    />
                 <TextBlock 
                     FontSize="10"
                     Grid.Row="1" 
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Margin="5 0"
-                    TextWrapping="Wrap"
+                    Padding="5"
+                    TextWrapping="WrapWithOverflow"
                     Text="{Binding Path=Description}"
                     
                     />
@@ -79,13 +79,13 @@
 
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Priority}" Value="1">
-                    <Setter TargetName="txtListGrid" Property="Background" Value="LawnGreen"/>
+                    <Setter TargetName="txtListGrid" Property="Background" Value="#cfffcc"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Priority}" Value="2">
-                    <Setter TargetName="txtListGrid" Property="Background" Value="LemonChiffon"/>
+                    <Setter TargetName="txtListGrid" Property="Background" Value="#fffcc9"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Priority}" Value="3">
-                    <Setter TargetName="txtListGrid" Property="Background" Value="gold"/>
+                    <Setter TargetName="txtListGrid" Property="Background" Value="#ffdbbd"/>
                 </DataTrigger>
             </DataTemplate.Triggers>
 
@@ -93,10 +93,11 @@
     </Window.Resources>
 
 
-    <Grid x:Name="mainWindow" Background="LightBlue">
+    <Grid x:Name="mainWindow" Background="#f2f2f2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -126,44 +127,12 @@
             Checked="chkBoxShowNearest_Checked" 
             Unchecked="chkBoxShowNearest_Checked"
             />
-        <CheckBox 
-            x:Name="chkBoxOrderByPriority" 
-            Grid.Column="1" 
-            Grid.Row="0"
-            VerticalAlignment="Bottom" 
-            Checked="chkBoxOrderByPriority_Checked" 
-            Unchecked="chkBoxOrderByPriority_Checked"
-            />
-
-        <Label 
-            x:Name="lblLanguage" 
-            Grid.Column="1"
-            Margin="5 -50 0 0"
-            VerticalAlignment="Center"
-            />
-        <ComboBox 
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Center" 
-            Text="Languages" 
-            x:Name="cmbBoxLanguages" 
-            Height="30" 
-            Width="100" 
-            Grid.Column="1" 
-            Margin="5"
-            SelectionChanged="cmbBox_SelectionChanged">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}"></TextBlock>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
 
         <ScrollViewer 
             
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
             FontSize="20"
             Grid.Column="0" 
-            Grid.ColumnSpan="1" 
             x:Name="sidePanelScrollViewer" 
             CanContentScroll="True" 
             PreviewMouseWheel="sidePanelScrollViewer_PreviewMouseWheel" 
@@ -172,7 +141,6 @@
             Grid.RowSpan="5" 
             Margin="5">
             <ListBox 
-                
                 x:Name="lstBoxSidePanel" 
                 ItemTemplate="{StaticResource myTaskTemplate}"
                 />
@@ -213,88 +181,108 @@
 
         <Label
             x:Name="lblMonday" 
-            Grid.Column="2"
+            Grid.Column="1"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >monday</Label>
         <Label
             x:Name="lblTuesday" 
-            Grid.Column="3"
+            Grid.Column="2"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >tuesday</Label>
         <Label
-            x:Name="lblWednsday" 
-            Grid.Column="4"
+            x:Name="lblWednesday" 
+            Grid.Column="3"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >wednsday</Label>
         <Label
             x:Name="lblThursday" 
-            Grid.Column="5"
+            Grid.Column="4"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >thurdsay</Label>
         <Label
             x:Name="lblFriday" 
-            Grid.Column="6"
+            Grid.Column="5"
             Grid.Row="0"
             VerticalAlignment="Bottom"
             HorizontalAlignment="Center"
             >friday</Label>
+        <Label
+            x:Name="lblSaturday" 
+            Grid.Column="6"
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            >saturday</Label>
+        <Label
+            x:Name="lblSunday" 
+            Grid.Column="7"
+            Grid.Row="0"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            >sunday</Label>
         
         <ListBox
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            FontSize="10"
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.RowSpan="5"
+            x:Name="lstBoxMonday"
+            ItemTemplate="{StaticResource myTaskTemplate}">
+        </ListBox>
+        <ListBox
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
             Grid.Row="1"
             Grid.Column="2"
             Grid.RowSpan="5"
-            x:Name="lstBoxMonday"
-            HorizontalAlignment="Center"
+            x:Name="lstBoxTuesday"
             ItemTemplate="{StaticResource myTaskTemplate}">
         </ListBox>
         <ListBox
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            FontSize="10"
             Grid.Row="1"
             Grid.Column="3"
             Grid.RowSpan="5"
-            x:Name="lstBoxTuesday"
-            HorizontalAlignment="Center"
+            x:Name="lstBoxWednsday"
             ItemTemplate="{StaticResource myTaskTemplate}">
         </ListBox>
         <ListBox
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            FontSize="10"
             Grid.Row="1"
             Grid.Column="4"
             Grid.RowSpan="5"
-            x:Name="lstBoxWednsday"
-            HorizontalAlignment="Center"
+            x:Name="lstBoxThursday"
             ItemTemplate="{StaticResource myTaskTemplate}">
         </ListBox>
         <ListBox
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            FontSize="10"
             Grid.Row="1"
             Grid.Column="5"
             Grid.RowSpan="5"
-            x:Name="lstBoxThursday"
-            HorizontalAlignment="Center"
+            x:Name="lstBoxFriday"
             ItemTemplate="{StaticResource myTaskTemplate}">
         </ListBox>
         <ListBox
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
-            FontSize="10"
             Grid.Row="1"
             Grid.Column="6"
             Grid.RowSpan="5"
-            x:Name="lstBoxFriday"
-            HorizontalAlignment="Center"
+            x:Name="lstBoxSaturday"
+            ItemTemplate="{StaticResource myTaskTemplate}">
+        </ListBox>
+        <ListBox
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            Grid.Row="1"
+            Grid.Column="7"
+            Grid.RowSpan="5"
+            x:Name="lstBoxSunday"
             ItemTemplate="{StaticResource myTaskTemplate}">
         </ListBox>
 

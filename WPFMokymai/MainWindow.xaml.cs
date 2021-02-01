@@ -11,12 +11,13 @@ using WPFMokymai;
 using AgendaApp.BL.Interfaces;
 using System.Windows.Media;
 using Microsoft.Win32;
+using AgendaApp.BL;
 
 namespace AgendaApp
 {
     public partial class MainWindow : Window
     {
-        private const string windowName = "MainWindow";
+        private string windowName;
         private const int defaultIndex = 0;
 
         IUiMessagesService messagesService;
@@ -24,29 +25,19 @@ namespace AgendaApp
 
         TranslationsMainWindowObject translationsMainWindowObject;
         WeekObj weekObject;
-        List<LanguageItem> languagesList;
         string selectedLanguage;
 
         public MainWindow()
         {
+            windowName = WindowNamesEnum.MainWindow.ToString();
+
             agendaViewerManager = new AgendaViewerManager();
             weekObject = new WeekObj();
 
-            languagesList = new List<LanguageItem>() {
-                new LanguageItem(){Id=1,Name="EN"},
-                new LanguageItem(){Id=2,Name="LT"}
-            };
-
             InitializeComponent();
-
             InitializeLanguage();
-
             TranslateWindowText();
 
-            cmbBoxLanguages.SelectedIndex = defaultIndex; 
-            cmbBoxLanguages.ItemsSource = languagesList;
-
-            lstBoxSidePanel.ItemsSource =  agendaViewerManager.GetNotCompletedAgendaItems(DateTime.UtcNow.Month);
             sidePanelScrollViewer.Content = lstBoxSidePanel;
 
             UpdateWeeklyAgendaList();
@@ -69,17 +60,12 @@ namespace AgendaApp
         private void NewAgendaItem_DataChanged(object sender, EventArgs e)
         {
             var item = (List<AgendaItem>)sender;
-            var eventArgs = e;
 
             if(item.Count > 1)
-            {
                 agendaViewerManager.AddMultipleNewlyCreatedAgendas(DateTime.Now.Month, item);
-            }
             else
-            {
                 agendaViewerManager.AddNewlyCreatedAgenda(item.FirstOrDefault().FinishDate.Month);
-            }
-            
+                        
             UpdateWeeklyAgendaList();
         }
 
@@ -89,18 +75,16 @@ namespace AgendaApp
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta );
             e.Handled = true;
         }
-        public virtual void TranslateWindowText()
+        public void TranslateWindowText()
         {
             translationsMainWindowObject = (TranslationsMainWindowObject)messagesService.GetTranslationsObject(windowName);
 
             Title = translationsMainWindowObject.Title;
             btnCreateNewAgenda.Content = translationsMainWindowObject.NewAgendaButtonText;
-            chkBoxOrderByPriority.Content = translationsMainWindowObject.Priority;
             chkBoxShowNearest.Content = translationsMainWindowObject.Nearest;
-            lblLanguage.Content = translationsMainWindowObject.Language;
             lblMonday.Content = translationsMainWindowObject.Monday;
             lblTuesday.Content = translationsMainWindowObject.Tuesday;
-            lblWednsday.Content = translationsMainWindowObject.Wednsday;
+            lblWednesday.Content = translationsMainWindowObject.Wednesday;
             lblThursday.Content = translationsMainWindowObject.Thursday;
             lblFriday.Content = translationsMainWindowObject.Friday;
             lblWeekName.Content = translationsMainWindowObject.Week;
@@ -108,36 +92,13 @@ namespace AgendaApp
             btnPreviousWeek.Content = translationsMainWindowObject.Previous;
         }
 
-        private void cmbBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedBox = (ComboBox)sender;
-            LanguageItem selectedLang = (LanguageItem)selectedBox.SelectedItem;
-            selectedLanguage = selectedLang.Name;
-
-            //TODO jei egzistuoja vienos kalbos serviso instance kito tokio pat daugiau nekurti
-            messagesService = new UiMessagesService(selectedLanguage);
-            TranslateWindowText();
-        }
-
         private void chkBoxShowNearest_Checked(object sender, RoutedEventArgs e)
         {
             var check = (CheckBox)sender;
 
-            if (check.IsChecked == true)
-                lstBoxSidePanel.ItemsSource = agendaViewerManager.GetFutureNearestMonthAgendaItems(DateTime.UtcNow.Month);
-            else
-                lstBoxSidePanel.ItemsSource = agendaViewerManager.GetNotCompletedAgendaItems(DateTime.UtcNow.Month);
-            
-        }
-
-        private void chkBoxOrderByPriority_Checked(object sender, RoutedEventArgs e)
-        {
-            var check = (CheckBox)sender;
-
-            if (check.IsChecked == true)
-                lstBoxSidePanel.ItemsSource = agendaViewerManager.GetMonthAgendaItemsByPriority(DateTime.UtcNow.Month);
-            else 
-                lstBoxSidePanel.ItemsSource = agendaViewerManager.GetNotCompletedAgendaItems(DateTime.UtcNow.Month);
+            lstBoxSidePanel.ItemsSource = (bool)check.IsChecked ? 
+                agendaViewerManager.GetFutureNearestMonthAgendaItems(DateTime.UtcNow.Month) : 
+                agendaViewerManager.GetNotCompletedAgendaItems(DateTime.UtcNow.Month);
         }
 
         private void btnNextWeek_Click(object sender, RoutedEventArgs e)
@@ -155,41 +116,26 @@ namespace AgendaApp
         }
         private void UpdateWeeklyAgendaList()
         {
-            //TODO sutvarkyt filtravima
             lblWeekNumber.Content = weekObject.GetCurrentWeekNumber();
 
-
-            lstBoxMonday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Month,
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Monday].Day)
-                .Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year)
-                .OrderBy(x=>x.FinishDate);
-
-            lstBoxTuesday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Month,
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Tuesday].Day)
-                .Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year)
-                .OrderBy(x => x.FinishDate);
-
-            lstBoxWednsday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Wednsday].Month,
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Wednsday].Day)
-                .Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year)
-                .OrderBy(x => x.FinishDate);
-
-            lstBoxThursday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Month,
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Thursday].Day)
-                .Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year)
-                .OrderBy(x => x.FinishDate);
-
-            lstBoxFriday.ItemsSource = agendaViewerManager.GetCurrentWeekDayAgendaItems(
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Month, 
-                weekObject.SelectedWeek[(int)DayOfWeekEnum.Friday].Day)
-                .Where(x=>x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year)
-                .OrderBy(x => x.FinishDate);
+            lstBoxMonday.ItemsSource = FilterCurrentWeekAgenda(DayOfWeekEnum.Monday);
+            lstBoxTuesday.ItemsSource = FilterCurrentWeekAgenda(DayOfWeekEnum.Tuesday);
+            lstBoxWednsday.ItemsSource = FilterCurrentWeekAgenda(DayOfWeekEnum.Wednesday);
+            lstBoxThursday.ItemsSource = FilterCurrentWeekAgenda(DayOfWeekEnum.Thursday);
+            lstBoxFriday.ItemsSource = FilterCurrentWeekAgenda(DayOfWeekEnum.Friday);
+            lstBoxSaturday.ItemsSource = FilterCurrentWeekAgenda(DayOfWeekEnum.Saturday);
+            lstBoxSunday.ItemsSource = FilterCurrentWeekAgenda(DayOfWeekEnum.Sunday);
 
             lstBoxSidePanel.ItemsSource = agendaViewerManager.GetNotCompletedAgendaItems(DateTime.UtcNow.Month);
+        }
+
+        private List<AgendaItem> FilterCurrentWeekAgenda(DayOfWeekEnum day)
+        {
+            return (List<AgendaItem>)agendaViewerManager.GetCurrentWeekDayAgendaItems(
+                            weekObject.SelectedWeek[(int)day].Month,
+                            weekObject.SelectedWeek[(int)day].Day)
+                .Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year)
+                .OrderBy(x => x.FinishDate); 
         }
 
         private void txtListGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)

@@ -10,6 +10,7 @@ namespace AgendaApp.BL
     {
         MainWindow,
         AgendaWindow,
-        WeeklyReportWindow
+        WeeklyReportWindow,
+        ConfigurationWindow
     }
 }

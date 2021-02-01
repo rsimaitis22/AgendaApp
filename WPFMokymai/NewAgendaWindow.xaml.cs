@@ -8,12 +8,13 @@ using AgendaApp.DL.Models;
 using AgendaApp.BL.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using AgendaApp.BL;
 
 namespace AgendaApp
 {
     public partial class NewAgendaItem : Window
     {
-        private const string windowName = "AgendaWindow";
+        private string windowName;
         private const int defaultIndex = 0;
 
         IAgendaManager agendaManager;
@@ -33,6 +34,7 @@ namespace AgendaApp
 
         public NewAgendaItem(string language)
         {
+            windowName = WindowNamesEnum.AgendaWindow.ToString();
             InitializeComponent();
 
             createdAgendas = new List<AgendaItem>();
@@ -54,7 +56,7 @@ namespace AgendaApp
             cmbBoxPriority.SelectedIndex = defaultIndex;
         }
 
-        public virtual void TranslateWindowText()
+        public void TranslateWindowText()
         {
             translationsAgendaObject = (TranslationsAgendaObject)uiMessagesService.GetTranslationsObject(windowName);
 
@@ -78,9 +80,11 @@ namespace AgendaApp
 
             lblMonday.Content = translationsAgendaObject.Monday.First();
             lblTuesday.Content = translationsAgendaObject.Tuesday.First();
-            lblWednesday.Content = translationsAgendaObject.Wednsday.First();
+            lblWednesday.Content = translationsAgendaObject.Wednesday.First();
             lblThursday.Content = translationsAgendaObject.Thursday.First();
             lblFriday.Content = translationsAgendaObject.Friday.First();
+            lblSaturday.Content = translationsAgendaObject.Saturday.First();
+            lblSunday.Content = translationsAgendaObject.Sunday.First();
         }
 
         private void listBoxMinutes_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -176,7 +180,6 @@ namespace AgendaApp
         }
         public virtual void CreateRepeatableAgendaObjects()
         {
-
             //TODO sutvarkyt 
             int lastAgendaId = agendaManager.GetNewlyCreatedAgenda().Id;
             agendaItem.IsCompleted = false;
@@ -187,7 +190,7 @@ namespace AgendaApp
             selectedDates = selectedDates
                 .Where(x => x.Day >= agendaItem.StartDate.Value.Day 
                     && x.Day <= agendaItem.FinishDate.Day 
-                    && x.Month == DateTime.Now.Month)
+                    && x.Month == agendaItem.FinishDate.Month)
                 .ToList();
 
             foreach (var singleDay in selectedDates)
@@ -261,35 +264,26 @@ namespace AgendaApp
         private void titleTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBoxObj = (TextBox)sender;
-            
-            if (textBoxObj.Text.Length > 0)
-            {
-                textBoxObj.BorderBrush = new SolidColorBrush(Colors.White);
-                agendaItem.Title = textBoxObj.Text;
-            }
-            else
-            {
-                textBoxObj.BorderBrush = new SolidColorBrush(Colors.Red);
-                agendaItem.Title = null;
-            }
+            ReturnBorderBrush(textBoxObj);
+            agendaItem.Title = textBoxObj.Text;
+
             CheckIfAgendaItemIsCompleted();
         }
+
 
         private void descriptionTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBoxObj = (TextBox)sender;
+            ReturnBorderBrush(textBoxObj);
+            agendaItem.Description = textBoxObj.Text;
 
-            if (textBoxObj.Text.Length > 0)
-            {
-                textBoxObj.BorderBrush = new SolidColorBrush(Colors.White);
-                agendaItem.Description = textBoxObj.Text;
-            }
-            else
-            {
-                textBoxObj.BorderBrush = new SolidColorBrush(Colors.Red);
-                agendaItem.Description = null;
-            }
             CheckIfAgendaItemIsCompleted();
+        }
+        private void ReturnBorderBrush(TextBox textBoxObj)
+        {
+            textBoxObj.BorderBrush = textBoxObj.Text.Length > 0
+                ? new SolidColorBrush(Colors.White)
+                : new SolidColorBrush(Colors.Red);
         }
 
         private void cmbBoxPriority_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -324,6 +318,14 @@ namespace AgendaApp
             {
                 selectedDates.AddRange(repeatingDates.Where(x => x.DayOfWeek == DayOfWeek.Friday).ToList());
             }
+            if (obj.Name == $"{box}Saturday")
+            {
+                selectedDates.AddRange(repeatingDates.Where(x => x.DayOfWeek == DayOfWeek.Saturday).ToList());
+            }
+            if (obj.Name == $"{box}Sunday")
+            {
+                selectedDates.AddRange(repeatingDates.Where(x => x.DayOfWeek == DayOfWeek.Sunday).ToList());
+            }
         }
         private void chkBox_UnChecked(object sender, RoutedEventArgs e)
         {
@@ -350,7 +352,16 @@ namespace AgendaApp
             {
                 selectedDates.RemoveAll(x => x.DayOfWeek == DayOfWeek.Friday);
             }
+            if (obj.Name == $"{box}Saturday")
+            {
+                selectedDates.RemoveAll(x => x.DayOfWeek == DayOfWeek.Saturday);
+            }
+            if (obj.Name == $"{box}Sunday")
+            {
+                selectedDates.RemoveAll(x => x.DayOfWeek == DayOfWeek.Sunday);
+            }
         }
+
         private List<DateTime> GetDatesInMonthList(int month)
         {
             return Enumerable.Range(1, DateTime.DaysInMonth(DateTime.UtcNow.Year, month)) 

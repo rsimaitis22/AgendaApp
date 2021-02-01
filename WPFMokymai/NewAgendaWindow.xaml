@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AgendaApp"
         mc:Ignorable="d"
         Title="" Height="620" Width="450">
-    <Grid Background="Gainsboro">
+    <Grid Background="#f2f2f2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -47,7 +47,7 @@
                    />
             <TextBox  
                 Background="White"
-                BorderBrush="Red"
+                BorderBrush="#ff788c"
                 BorderThickness="2"
                 MaxLength="30"
                 FontSize="16"
@@ -63,7 +63,7 @@
                 />
             <TextBox  
                 Background="White"
-                BorderBrush="Red"
+                BorderBrush="#ff788c"
                 BorderThickness="2"
                 TextWrapping="Wrap"
                 MaxLength="100"
@@ -128,7 +128,7 @@
                     >
             <DatePicker 
                 Margin="10 0"
-                Background="IndianRed" 
+                Background="#ff788c" 
                 x:Name="cldStartingDay" 
                 SelectedDateChanged="cldSample_SelectedDateChanged"
                 />
@@ -149,7 +149,7 @@
             >
             <StackPanel>
                 <ListBox 
-                    Background="IndianRed" 
+                    Background="#ff788c" 
                     x:Name="lstBoxStartingDayHours" 
                     HorizontalAlignment="Center" 
                     Height="30" 
@@ -171,7 +171,7 @@
             >
             <StackPanel>
                 <ListBox 
-                    Background="IndianRed" 
+                    Background="#ff788c" 
                     x:Name="lstBoxStartingDayMinutes" 
                     HorizontalAlignment="Center"
                     Height="30" SelectionChanged="listBoxMinutes_SelectionChanged"
@@ -204,7 +204,7 @@
                     >
                 <DatePicker 
                 Margin="10 0"
-                Background="IndianRed" 
+                Background="#ff788c" 
                 x:Name="cldFinishDay" 
                 SelectedDateChanged="cldSample_SelectedDateChanged"
                 />
@@ -225,7 +225,7 @@
             >
                 <StackPanel>
                     <ListBox 
-                    Background="IndianRed" 
+                    Background="#ff788c" 
                     x:Name="lstBoxFinishDayHours" 
                     HorizontalAlignment="Center" 
                     Height="30" 
@@ -248,7 +248,7 @@
             >
             <StackPanel>
                 <ListBox 
-                    Background="IndianRed" 
+                    Background="#ff788c" 
                     x:Name="lstBoxFinishDayMinutes" 
                     HorizontalAlignment="Center"
                     Height="30" SelectionChanged="listBoxMinutes_SelectionChanged"
@@ -258,66 +258,92 @@
 
         <Label 
             Name="lblMonday"
-            Grid.Column="2"
+            Grid.Column="1"
             Grid.Row="10"
             VerticalContentAlignment="Bottom"
             />
         <Label 
             Name="lblTuesday"
-            Grid.Column="3"
+            Grid.Column="2"
             Grid.Row="10"
             VerticalContentAlignment="Bottom"
             />
         <Label 
             Name="lblWednesday"
-            Grid.Column="4"
+            Grid.Column="3"
             Grid.Row="10"
             VerticalContentAlignment="Bottom"
             />
         <Label 
             Name="lblThursday"
-            Grid.Column="5"
+            Grid.Column="4"
             Grid.Row="10"
             VerticalContentAlignment="Bottom"
             />
         <Label 
             Name="lblFriday"
+            Grid.Column="5"
+            Grid.Row="10"
+            VerticalContentAlignment="Bottom"
+            />
+        <Label 
+            Name="lblSaturday"
             Grid.Column="6"
+            Grid.Row="10"
+            VerticalContentAlignment="Bottom"
+            />
+        <Label 
+            Name="lblSunday"
+            Grid.Column="7"
             Grid.Row="10"
             VerticalContentAlignment="Bottom"
             />
 
         <CheckBox
             Name="chkBoxMonday"
-            Grid.Column="2"
+            Grid.Column="1"
             Grid.Row="11"
             Checked="chkBox_Checked"
             Unchecked="chkBox_UnChecked"
             />
         <CheckBox
             Name="chkBoxTuesday"
-            Grid.Column="3"
+            Grid.Column="2"
             Grid.Row="11"
             Checked="chkBox_Checked"
             Unchecked="chkBox_UnChecked"
             />
         <CheckBox
             Name="chkBoxWednesday"
-            Grid.Column="4"
+            Grid.Column="3"
             Grid.Row="11"
             Checked="chkBox_Checked"
             Unchecked="chkBox_UnChecked"
             />
         <CheckBox
             Name="chkBoxThursday"
-            Grid.Column="5"
+            Grid.Column="4"
             Grid.Row="11"
             Checked="chkBox_Checked"
             Unchecked="chkBox_UnChecked"
             />
         <CheckBox
             Name="chkBoxFriday"
+            Grid.Column="5"
+            Grid.Row="11"
+            Checked="chkBox_Checked"
+            Unchecked="chkBox_UnChecked"
+            />
+        <CheckBox
+            Name="chkBoxSaturday"
             Grid.Column="6"
+            Grid.Row="11"
+            Checked="chkBox_Checked"
+            Unchecked="chkBox_UnChecked"
+            />
+        <CheckBox
+            Name="chkBoxSunday"
+            Grid.Column="7"
             Grid.Row="11"
             Checked="chkBox_Checked"
             Unchecked="chkBox_UnChecked"
@@ -337,7 +363,7 @@
             BorderThickness="0"
             Margin="10 0"
             x:Name="btnExit" 
-            Background="IndianRed" 
+            Background="#ff788c" 
             Click="btn_exitWithoutSaving" 
             Grid.Column="4" 
             Grid.ColumnSpan="4" 

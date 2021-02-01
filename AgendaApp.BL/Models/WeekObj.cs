@@ -48,7 +48,7 @@ namespace AgendaApp.BL.Models
     {
         Monday = 0,
         Tuesday = 1,
-        Wednsday = 2,
+        Wednesday = 2,
         Thursday = 3,
         Friday = 4,
         Saturday =5,
