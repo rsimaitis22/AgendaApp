@@ -131,11 +131,11 @@ namespace AgendaApp
 
         private List<AgendaItem> FilterCurrentWeekAgenda(DayOfWeekEnum day)
         {
-            return (List<AgendaItem>)agendaViewerManager.GetCurrentWeekDayAgendaItems(
+            return agendaViewerManager.GetCurrentWeekDayAgendaItems(
                             weekObject.SelectedWeek[(int)day].Month,
                             weekObject.SelectedWeek[(int)day].Day)
                 .Where(x => x.FinishDate.Year == weekObject.SelectedWeek[defaultIndex].Year)
-                .OrderBy(x => x.FinishDate); 
+                .OrderBy(x => x.FinishDate).ToList(); 
         }
 
         private void txtListGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
